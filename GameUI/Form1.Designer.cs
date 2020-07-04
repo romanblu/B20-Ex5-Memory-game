@@ -1,4 +1,4 @@
-﻿namespace MemoryGameUI
+﻿namespace GameUI
 {
     partial class Form1
     {
