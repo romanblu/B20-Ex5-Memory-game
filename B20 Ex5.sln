@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameUI", "GameUI\GameUI.csproj", "{2F03B13F-7B34-41F0-805A-72F7B78F83EC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MemoryGameUI", "MemoryGameUI\MemoryGameUI.csproj", "{0AE9863F-FE73-4C27-9B39-F9AD6A0F43F0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2F03B13F-7B34-41F0-805A-72F7B78F83EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2F03B13F-7B34-41F0-805A-72F7B78F83EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2F03B13F-7B34-41F0-805A-72F7B78F83EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2F03B13F-7B34-41F0-805A-72F7B78F83EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0AE9863F-FE73-4C27-9B39-F9AD6A0F43F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AE9863F-FE73-4C27-9B39-F9AD6A0F43F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AE9863F-FE73-4C27-9B39-F9AD6A0F43F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AE9863F-FE73-4C27-9B39-F9AD6A0F43F0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
