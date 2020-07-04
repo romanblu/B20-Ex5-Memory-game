@@ -79,6 +79,8 @@ namespace GameUserInterface
                 m_LabelBoardSize, m_TextboxFirstPlayer, m_TextboxSecondPlayer, m_ButtonPlayAgainstFriend, m_ButtonBoardSize, m_ButtonStart });
 
             m_ButtonPlayAgainstFriend.Click += m_ButtonPlayAgainstFriend_Click;
+            m_ButtonBoardSize.Click += m_ButtonBoardSize_Click;
+
         }
 
         void m_ButtonPlayAgainstFriend_Click(object sender, EventArgs e)
@@ -100,7 +102,20 @@ namespace GameUserInterface
         void m_ButtonBoardSize_Click(object sender, EventArgs e)
         {
             string targetSize = (sender as Button).Text;
-
+            int rows = targetSize[2] - '0';
+            int columns = targetSize[0] - '0';
+            rows++;
+            if(rows > 6)
+            {
+                rows = 4;
+                columns++;
+            }
+            if( columns > 6)
+            {
+                columns = 4;
+                rows = 4;
+            }
+            m_ButtonBoardSize.Text = columns + "x" + rows;
         }
 
     }
