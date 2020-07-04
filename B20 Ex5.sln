@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MemoryGameUI", "MemoryGameUI\MemoryGameUI.csproj", "{0AE9863F-FE73-4C27-9B39-F9AD6A0F43F0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameUserInterface", "GameUserInterface\GameUserInterface.csproj", "{CA42927C-6B9D-4107-A4A1-AB5DAE12C5AC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{0AE9863F-FE73-4C27-9B39-F9AD6A0F43F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0AE9863F-FE73-4C27-9B39-F9AD6A0F43F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0AE9863F-FE73-4C27-9B39-F9AD6A0F43F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA42927C-6B9D-4107-A4A1-AB5DAE12C5AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA42927C-6B9D-4107-A4A1-AB5DAE12C5AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA42927C-6B9D-4107-A4A1-AB5DAE12C5AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA42927C-6B9D-4107-A4A1-AB5DAE12C5AC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

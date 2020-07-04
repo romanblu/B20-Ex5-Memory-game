@@ -17,6 +17,7 @@ namespace MemoryGameUI
             MainGameForm form = new MainGameForm();
             form.ShowDialog();
 
+
             //Application.EnableVisualStyles();
             //Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new MainGameForm());
