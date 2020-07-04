@@ -3,16 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 
 namespace GameUserInterface
 {
     static class Program
     {
+        [STAThread]
         public static void Main()
         {
-            GameSettings gameForm = new GameSettings();
-            gameForm.ShowDialog();
+            //  GameSettings gameForm = new GameSettings();
+            //  gameForm.ShowDialog();
+            //MainGame game = new MainGame(4, 4);
+            //game.ShowDialog();
+            
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new MainGame(6,6));
         }
     }
 }

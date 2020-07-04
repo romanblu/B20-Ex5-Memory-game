@@ -10,7 +10,6 @@ using System.Windows.Forms;
 
 namespace GameUserInterface
 {
-    
     public partial class GameSettings : Form
     {
 
@@ -25,6 +24,7 @@ namespace GameUserInterface
         Button m_ButtonBoardSize = new Button();
         Button m_ButtonStart = new Button();
 
+        bool m_AgainstFriend = false;
 
         public GameSettings()
         {
@@ -35,7 +35,7 @@ namespace GameUserInterface
 
         }
 
-
+        
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
@@ -65,51 +65,58 @@ namespace GameUserInterface
             m_ButtonPlayAgainstFriend.Text = "Against a Friend";
             m_ButtonPlayAgainstFriend.Location = new Point(m_TextboxSecondPlayer.Right + 10, m_TextboxSecondPlayer.Top);
             m_ButtonPlayAgainstFriend.Width = 120;
-            m_ButtonPlayAgainstFriend.Click += new System.EventHandler(this.buttonPlayAgainstFriend_Clicked);
-            
-
             m_ButtonBoardSize.Location = new Point(10, m_LabelBoardSize.Top + 30);
             m_ButtonBoardSize.Text = "4x4";
             m_ButtonBoardSize.Width = 100;
             m_ButtonBoardSize.Height = 75;
             m_ButtonBoardSize.BackColor = Color.MediumPurple;
-            m_ButtonBoardSize.Click += new System.EventHandler(this.buttonBoardSize_Clicked);
-
 
             m_ButtonStart.Text = "Start!";
             m_ButtonStart.Location = new Point(m_ButtonPlayAgainstFriend.Right - m_ButtonStart.Width, m_ButtonBoardSize.Top + m_ButtonBoardSize.Height - m_ButtonStart.Height);
             m_ButtonStart.BackColor = Color.LightGreen;
-            m_ButtonStart.Click += new System.EventHandler(this.buttonStart_Clicked);
 
             this.Controls.AddRange(new Control[] { m_LabelFirstPlayer, m_LabelSecondPlayer,
                 m_LabelBoardSize, m_TextboxFirstPlayer, m_TextboxSecondPlayer, m_ButtonPlayAgainstFriend, m_ButtonBoardSize, m_ButtonStart });
 
+            m_ButtonPlayAgainstFriend.Click += m_ButtonPlayAgainstFriend_Click;
+            m_ButtonBoardSize.Click += m_ButtonBoardSize_Click;
+
         }
 
-        private void buttonPlayAgainstFriend_Clicked(object sender, EventArgs e)
+        void m_ButtonPlayAgainstFriend_Click(object sender, EventArgs e)
         {
-            if(m_TextboxSecondPlayer.Enabled == false)
+            if (m_AgainstFriend)
             {
-                m_TextboxSecondPlayer.Enabled = true;
-                m_ButtonPlayAgainstFriend.Text = "Against Computer";
-            }
-           else
-           {
+                m_AgainstFriend = false;
                 m_TextboxSecondPlayer.Enabled = false;
                 m_TextboxSecondPlayer.Text = "-computer-";
-                m_ButtonPlayAgainstFriend.Text = "Against a Friend";
-           }
+            }
+            else
+            {
+                m_AgainstFriend = true;
+                m_TextboxSecondPlayer.Enabled = true;
+                m_TextboxSecondPlayer.Text = "";
+            }
         }
 
-        private void buttonBoardSize_Clicked(object sender, EventArgs e)
+        void m_ButtonBoardSize_Click(object sender, EventArgs e)
         {
-            //TODO
+            string targetSize = (sender as Button).Text;
+            int rows = targetSize[2] - '0';
+            int columns = targetSize[0] - '0';
+            rows++;
+            if(rows > 6)
+            {
+                rows = 4;
+                columns++;
+            }
+            if( columns > 6)
+            {
+                columns = 4;
+                rows = 4;
+            }
+            m_ButtonBoardSize.Text = columns + "x" + rows;
         }
 
-        private void buttonStart_Clicked(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-       
     }
 }
