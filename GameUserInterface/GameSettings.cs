@@ -10,6 +10,7 @@ using System.Windows.Forms;
 
 namespace GameUserInterface
 {
+    
     public partial class GameSettings : Form
     {
 
@@ -33,7 +34,6 @@ namespace GameUserInterface
             this.Text = "Memory Game - Settings";
 
         }
-
 
 
         protected override void OnLoad(EventArgs e)
@@ -65,11 +65,15 @@ namespace GameUserInterface
             m_ButtonPlayAgainstFriend.Text = "Against a Friend";
             m_ButtonPlayAgainstFriend.Location = new Point(m_TextboxSecondPlayer.Right + 10, m_TextboxSecondPlayer.Top);
             m_ButtonPlayAgainstFriend.Width = 120;
+            m_ButtonPlayAgainstFriend.Click += new System.EventHandler(this.buttonPlayAgainstFriend_Clicked);
+            
+
             m_ButtonBoardSize.Location = new Point(10, m_LabelBoardSize.Top + 30);
             m_ButtonBoardSize.Text = "4x4";
             m_ButtonBoardSize.Width = 100;
             m_ButtonBoardSize.Height = 75;
             m_ButtonBoardSize.BackColor = Color.MediumPurple;
+
 
             m_ButtonStart.Text = "Start!";
             m_ButtonStart.Location = new Point(m_ButtonPlayAgainstFriend.Right - m_ButtonStart.Width, m_ButtonBoardSize.Top + m_ButtonBoardSize.Height - m_ButtonStart.Height);
@@ -80,6 +84,20 @@ namespace GameUserInterface
 
         }
 
-
+        private void buttonPlayAgainstFriend_Clicked(object sender, EventArgs e)
+        {
+            if(m_TextboxSecondPlayer.Enabled == false)
+            {
+                m_TextboxSecondPlayer.Enabled = true;
+                m_ButtonPlayAgainstFriend.Text = "Against Computer";
+            }
+           else
+           {
+                m_TextboxSecondPlayer.Enabled = false;
+                m_TextboxSecondPlayer.Text = "-computer-";
+                m_ButtonPlayAgainstFriend.Text = "Against a Friend";
+           }
+        }
+       
     }
 }
