@@ -1,6 +1,6 @@
-﻿namespace GameUI
+﻿namespace MemoryGameUI
 {
-    partial class Form1
+    partial class GameForm
     {
         /// <summary>
         /// Required designer variable.

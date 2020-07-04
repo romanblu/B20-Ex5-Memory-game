@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace GameUI
+namespace MemoryGameUI
 {
     public partial class Form1 : Form
     {

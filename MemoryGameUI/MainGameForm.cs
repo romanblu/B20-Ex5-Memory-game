@@ -49,7 +49,7 @@ namespace MemoryGameUI
 
             m_LabelSecondPlayer.Text = "Second Player Name:";
             m_LabelSecondPlayer.Location = new Point(10, 50);
-
+            m_LabelSecondPlayer.Width = 120;
 
             m_LabelBoardSize.Text = "Board Size:";
             m_LabelBoardSize.Location = new Point(10, m_LabelSecondPlayer.Top + m_LabelSecondPlayer.Height + 10);
@@ -62,14 +62,19 @@ namespace MemoryGameUI
 
             m_ButtonPlayAgainstFriend.Text = "Against a Friend";
             m_ButtonPlayAgainstFriend.Location = new Point(m_TextboxSecondPlayer.Right + 10 , m_TextboxSecondPlayer.Top);
+            m_ButtonPlayAgainstFriend.Width = 120;
             m_ButtonBoardSize.Location = new Point(10, m_LabelBoardSize.Top + 30);
             m_ButtonBoardSize.Text = "4x4";
             m_ButtonBoardSize.Width = 100;
             m_ButtonBoardSize.Height = 75;
+            m_ButtonBoardSize.BackColor = Color.MediumPurple;
 
+            m_ButtonStart.Text = "Start!";
+            m_ButtonStart.Location = new Point( m_ButtonPlayAgainstFriend.Right - m_ButtonStart.Width , m_ButtonBoardSize.Top + m_ButtonBoardSize.Height - m_ButtonStart.Height);
+            m_ButtonStart.BackColor = Color.LightGreen;
 
             this.Controls.AddRange(new Control[] { m_LabelFirstPlayer, m_LabelSecondPlayer, 
-                m_LabelBoardSize, m_TextboxFirstPlayer, m_TextboxSecondPlayer, m_ButtonPlayAgainstFriend, m_ButtonBoardSize });
+                m_LabelBoardSize, m_TextboxFirstPlayer, m_TextboxSecondPlayer, m_ButtonPlayAgainstFriend, m_ButtonBoardSize, m_ButtonStart });
 
         }
 
