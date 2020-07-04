@@ -39,18 +39,31 @@ namespace GameUserInterface
 
         void InitializeCards()
         {
+            
             for(int i=0; i < m_Columns; i++)
             {
-                for(int j=0; j < m_Rows; i++)
+                for(int j=0; j < m_Rows; j++)
                 {
+                    
                     Button card = new Button();
-                    card.Text = i + j .ToString();
+                    card.Text = (i + j) .ToString();
                     card.Height = 30;
                     card.Width = 30;
                     card.Location = new Point(10 + (card.Width + 10) * i, 10 + (card.Height + 10) * j);
                     this.Controls.Add(card);
                 }
             }
+            /*
+            for(int i = 0; i < 20; i++)
+            {
+                Button card = new Button();
+                card.Text = i + i.ToString();
+                card.Height = 30;
+                card.Width = 30;
+                card.Location = new Point(10 + (card.Width + 10) * i, 10 + (card.Height + 10) * i);
+                this.Controls.Add(card);
+            }*/
+
         }
     }
 }
