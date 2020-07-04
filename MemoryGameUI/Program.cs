@@ -14,8 +14,8 @@ namespace MemoryGameUI
         //[STAThread]
         static void Main()
         {
-            MainGameForm form = new MainGameForm();
-            form.ShowDialog();
+           // MainGameForm form = new MainGameForm();
+           // form.ShowDialog();
 
 
             //Application.EnableVisualStyles();

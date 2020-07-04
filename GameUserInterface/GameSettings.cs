@@ -73,11 +73,13 @@ namespace GameUserInterface
             m_ButtonBoardSize.Width = 100;
             m_ButtonBoardSize.Height = 75;
             m_ButtonBoardSize.BackColor = Color.MediumPurple;
+            m_ButtonBoardSize.Click += new System.EventHandler(this.buttonBoardSize_Clicked);
 
 
             m_ButtonStart.Text = "Start!";
             m_ButtonStart.Location = new Point(m_ButtonPlayAgainstFriend.Right - m_ButtonStart.Width, m_ButtonBoardSize.Top + m_ButtonBoardSize.Height - m_ButtonStart.Height);
             m_ButtonStart.BackColor = Color.LightGreen;
+            m_ButtonStart.Click += new System.EventHandler(this.buttonStart_Clicked);
 
             this.Controls.AddRange(new Control[] { m_LabelFirstPlayer, m_LabelSecondPlayer,
                 m_LabelBoardSize, m_TextboxFirstPlayer, m_TextboxSecondPlayer, m_ButtonPlayAgainstFriend, m_ButtonBoardSize, m_ButtonStart });
@@ -97,6 +99,16 @@ namespace GameUserInterface
                 m_TextboxSecondPlayer.Text = "-computer-";
                 m_ButtonPlayAgainstFriend.Text = "Against a Friend";
            }
+        }
+
+        private void buttonBoardSize_Clicked(object sender, EventArgs e)
+        {
+            //TODO
+        }
+
+        private void buttonStart_Clicked(object sender, EventArgs e)
+        {
+            this.Close();
         }
        
     }
