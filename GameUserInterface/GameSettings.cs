@@ -24,6 +24,7 @@ namespace GameUserInterface
         Button m_ButtonBoardSize = new Button();
         Button m_ButtonStart = new Button();
 
+        bool m_AgainstFriend = false;
 
         public GameSettings()
         {
@@ -34,8 +35,7 @@ namespace GameUserInterface
 
         }
 
-
-
+        
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
@@ -78,8 +78,30 @@ namespace GameUserInterface
             this.Controls.AddRange(new Control[] { m_LabelFirstPlayer, m_LabelSecondPlayer,
                 m_LabelBoardSize, m_TextboxFirstPlayer, m_TextboxSecondPlayer, m_ButtonPlayAgainstFriend, m_ButtonBoardSize, m_ButtonStart });
 
+            m_ButtonPlayAgainstFriend.Click += m_ButtonPlayAgainstFriend_Click;
         }
 
+        void m_ButtonPlayAgainstFriend_Click(object sender, EventArgs e)
+        {
+            if (m_AgainstFriend)
+            {
+                m_AgainstFriend = false;
+                m_TextboxSecondPlayer.Enabled = false;
+                m_TextboxSecondPlayer.Text = "-computer-";
+            }
+            else
+            {
+                m_AgainstFriend = true;
+                m_TextboxSecondPlayer.Enabled = true;
+                m_TextboxSecondPlayer.Text = "";
+            }
+        }
+
+        void m_ButtonBoardSize_Click(object sender, EventArgs e)
+        {
+            string targetSize = (sender as Button).Text;
+
+        }
 
     }
 }
