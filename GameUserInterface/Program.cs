@@ -11,8 +11,11 @@ namespace GameUserInterface
     {
         public static void Main()
         {
-            GameSettings gameForm = new GameSettings();
-            gameForm.ShowDialog();
+            //   GameSettings gameForm = new GameSettings();
+            //   gameForm.ShowDialog();
+            MainGame game = new MainGame(4, 4);
+            game.ShowDialog();
+
         }
     }
 }
