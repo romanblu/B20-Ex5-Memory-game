@@ -83,6 +83,7 @@ namespace GameUserInterface
 
         }
 
+          
         void m_ButtonPlayAgainstFriend_Click(object sender, EventArgs e)
         {
             if (m_AgainstFriend)
@@ -90,12 +91,14 @@ namespace GameUserInterface
                 m_AgainstFriend = false;
                 m_TextboxSecondPlayer.Enabled = false;
                 m_TextboxSecondPlayer.Text = "-computer-";
+                m_ButtonPlayAgainstFriend.Text = "Against a Friend";
             }
             else
             {
                 m_AgainstFriend = true;
                 m_TextboxSecondPlayer.Enabled = true;
                 m_TextboxSecondPlayer.Text = "";
+                m_ButtonPlayAgainstFriend.Text = "Against Computer";
             }
         }
 
