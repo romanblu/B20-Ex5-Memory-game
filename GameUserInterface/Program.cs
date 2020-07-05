@@ -20,7 +20,7 @@ namespace GameUserInterface
             
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainGame(6,6));
+            Application.Run(new MainGame(5, 4, "Holy", "Moly"));
         }
     }
 }

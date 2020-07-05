@@ -48,6 +48,8 @@ namespace GameUserInterface
 
         }
 
+
+
         private void InitControls()
         {
             m_LabelFirstPlayer.Text = "First Player Name:";
