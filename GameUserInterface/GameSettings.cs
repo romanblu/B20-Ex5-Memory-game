@@ -12,6 +12,10 @@ namespace GameUserInterface
 {
     public partial class GameSettings : Form
     {
+        const int k_MinRowLength = 4;
+        const int k_MaxRowLength = 6;
+        const int k_MinColumnLength = 4;
+        const int k_MaxColumnLength = 6;
 
         TextBox m_TextboxFirstPlayer = new TextBox();
         TextBox m_TextboxSecondPlayer = new TextBox();
@@ -32,7 +36,7 @@ namespace GameUserInterface
             //this.FormBorderStyle = FormBorderStyle.FixedToolWindow;
             this.StartPosition = FormStartPosition.CenterScreen;
             this.Text = "Memory Game - Settings";
-
+            
         }
 
         
@@ -108,15 +112,15 @@ namespace GameUserInterface
             int rows = targetSize[2] - '0';
             int columns = targetSize[0] - '0';
             rows++;
-            if(rows > 6)
+            if(rows > k_MaxRowLength)
             {
-                rows = 4;
+                rows = k_MaxRowLength;
                 columns++;
             }
-            if( columns > 6)
+            if( columns > k_MaxColumnLength)
             {
-                columns = 4;
-                rows = 4;
+                columns = k_MinColumnLength;
+                rows = k_MinRowLength;
             }
             m_ButtonBoardSize.Text = columns + "x" + rows;
         }

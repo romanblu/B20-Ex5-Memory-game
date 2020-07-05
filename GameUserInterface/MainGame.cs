@@ -15,6 +15,7 @@ namespace GameUserInterface
         int m_Rows;
         int m_Columns;
 
+        
         List<Button> m_Cards = new List<Button>();
 
         public MainGame(int i_Columns, int i_Rows)
@@ -34,7 +35,6 @@ namespace GameUserInterface
             base.OnLoad(e);
 
             InitializeCards();
-
         }
 
         void InitializeCards()
@@ -53,16 +53,7 @@ namespace GameUserInterface
                     this.Controls.Add(card);
                 }
             }
-            /*
-            for(int i = 0; i < 20; i++)
-            {
-                Button card = new Button();
-                card.Text = i + i.ToString();
-                card.Height = 30;
-                card.Width = 30;
-                card.Location = new Point(10 + (card.Width + 10) * i, 10 + (card.Height + 10) * i);
-                this.Controls.Add(card);
-            }*/
+            
 
         }
     }
