@@ -40,12 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GameManager.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\GameUserInterface\GameUserInterface.csproj">
-      <Project>{ca42927c-6b9d-4107-a4a1-ab5dae12c5ac}</Project>
-      <Name>GameUserInterface</Name>
-    </ProjectReference>
+    <Compile Include="PlayerStats.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

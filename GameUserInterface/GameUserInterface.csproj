@@ -65,5 +65,11 @@
       <DependentUpon>GameSettings.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GameLogic\GameLogic.csproj">
+      <Project>{7ba84c83-485f-4b0c-bdab-bab523073e2b}</Project>
+      <Name>GameLogic</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

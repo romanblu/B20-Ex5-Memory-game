@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using GameLogic;
 
 namespace GameUserInterface
 {
@@ -88,6 +89,7 @@ namespace GameUserInterface
             m_ButtonBoardSize.Click += m_ButtonBoardSize_Click;
             m_ButtonStart.Click += m_ButtonStart_Click;
 
+
         }
 
           
@@ -107,6 +109,31 @@ namespace GameUserInterface
                 m_TextboxSecondPlayer.Text = "";
                 m_ButtonPlayAgainstFriend.Text = "Against Computer";
             }
+        }
+
+        void m_ButtonStart_Click(object sender, EventArgs e)
+        {
+            if (!PlayerStats.ValidateInputName(m_TextboxFirstPlayer.Text))
+            {
+                MessageBox.Show("Player name not valid, use only characters");
+            }
+
+            if (m_AgainstFriend && !PlayerStats.ValidateInputName(m_TextboxSecondPlayer.Text))
+            {
+                MessageBox.Show("Player name not valid, use only characters");
+            }
+
+            if (!m_AgainstFriend)
+            {
+                m_TextboxSecondPlayer.Text = "Computer";
+            }
+
+            this.Close();
+            int rows = m_ButtonBoardSize.Text[2] - '0';
+            int columns = m_ButtonBoardSize.Text[0] - '0';
+            
+            MainGame mainGame = new MainGame(columns, rows, m_TextboxFirstPlayer.Text, m_TextboxSecondPlayer.Text);
+
         }
 
         void m_ButtonBoardSize_Click(object sender, EventArgs e)
