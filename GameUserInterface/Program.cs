@@ -8,18 +8,13 @@ using System.Windows.Forms.VisualStyles;
 
 namespace GameUserInterface
 {
-    static class Program
+    public static class Program
     {
         [STAThread]
         public static void Main()
         {
-            //GameSettings gameForm = new GameSettings();
-            //gameForm.ShowDialog();
-            
-            
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new MainGame(5, 4, "Holy", "Moly"));
             Application.Run(new GameSettings());
         }
     }

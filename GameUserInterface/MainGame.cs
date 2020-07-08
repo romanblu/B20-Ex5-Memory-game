@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GameLogic;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,7 +15,7 @@ namespace GameUserInterface
     {
         int m_Rows;
         int m_Columns;
-
+        
         Label m_LabelCurrentPlayer = new Label();
         Label m_LabelCurrentPlayerName = new Label();
         Label m_LabelFirstPlayerStats = new Label();
@@ -23,13 +24,17 @@ namespace GameUserInterface
         Label m_LabelFirstPlayerName = new Label();
         Label m_LabelSecondPlayerName = new Label();
 
-
+        
         List<Button> m_Cards = new List<Button>();
+        char[] values;
+        int[] indexesOfValues;
+        GameManager gameManager;
 
         public MainGame(int i_Columns, int i_Rows, string i_FirstPlayerName, string i_SecondPlayerName)
         {
             m_Rows = i_Rows;
             m_Columns = i_Columns;
+            values = new char[i_Rows * i_Columns / 2];
             this.StartPosition = FormStartPosition.CenterScreen;
             this.Text = "Memory Game - Settings";
             m_LabelFirstPlayerName.Text = i_FirstPlayerName +": ";
@@ -38,6 +43,11 @@ namespace GameUserInterface
             m_LabelSecondPlayerStats.Text = "0 Pairs";
             m_LabelCurrentPlayer.Text = "Current Player: ";
             m_LabelCurrentPlayerName.Text = i_FirstPlayerName;
+            indexesOfValues = new int[i_Columns * i_Rows];
+            gameManager = new GameManager(i_Rows, i_Columns);
+            GenerateValues();
+            indexesOfValues = gameManager.GenerateRandomIndexes(i_Rows, i_Columns);
+            
         }
 
         protected override void OnLoad(EventArgs e)
@@ -49,22 +59,9 @@ namespace GameUserInterface
 
         void InitializeComponents()
         {
-            
-            for(int i=0; i < m_Columns; i++)
-            {
-                for(int j=0; j < m_Rows; j++)
-                {
-                    
-                    Button card = new Button();
-                    card.Text = (i + j) .ToString();
-                    card.Height = 60;
-                    card.Width = 60;
-                    card.Location = new Point(10 + (card.Width + 10) * i, 10 + (card.Height + 10) * j);
-                    m_Cards.Add(card);
-                    this.Controls.Add(card);
-                }
 
-            }
+            InitializeCards();
+
             m_LabelCurrentPlayer.AutoSize = true;
             m_LabelCurrentPlayerName.AutoSize = true;
             m_LabelFirstPlayerName.AutoSize = true;
@@ -91,6 +88,69 @@ namespace GameUserInterface
             this.Controls.AddRange(new Control[] { m_LabelSecondPlayerStats, m_LabelSecondPlayerName, m_LabelCurrentPlayer, m_LabelCurrentPlayerName, m_LabelFirstPlayerName, m_LabelFirstPlayerStats });
 
             this.Size = new Size( m_Columns * ( 60 + 10) + 20 , m_LabelSecondPlayerStats.Bottom + 50);
+        
+        
         }
+
+        private void InitializeCards()
+        {
+            for (int i = 0; i < m_Rows; i++)
+            {
+                for (int j = 0; j < m_Columns; j++)
+                {
+
+                    CardButton card = new CardButton(indexesOfValues[m_Rows * i + j]);
+                    card.Text = indexesOfValues[m_Rows * i + j].ToString();
+                    card.Height = 60;
+                    card.Width = 60;
+                    card.Location = new Point(10 + (card.Width + 10) * j, 10 + (card.Height + 10) * i);
+                    m_Cards.Add(card);
+                    card.Click += m_ButtonCard_Click;
+                    this.Controls.Add(card);
+
+                }
+            }
+        }
+
+        private void GenerateValues()
+        {
+            for(int i = 0; i < m_Rows * m_Columns / 2; i++)
+            {
+                values[i] = (char)('A' + i);
+            }
+        }
+
+        void m_ButtonCard_Click(object sender, EventArgs e)
+        {
+            CardButton card = sender as CardButton;
+            
+            gameManager.OpenCard(card.IndexOfValue);
+
+            // if first move
+            // open card in the logic , update ui
+
+            // if second move , dont match
+            // open card in logic and if doesnt match close the cards in the logic and ui 
+
+            // if second move and match 
+            // remove the cards from the available list in logic and ui dont close them , leave the same player for the 2nd move and add a point 
+
+            // Block unwanted inputs 
+
+
+            
+           // (sender as CardButton).Text = values[(sender as CardButton).IndexOfValue].ToString();
+           /*
+            if(m_LabelCurrentPlayerName.Text == m_LabelFirstPlayerName.Text)
+            {
+                (sender as CardButton).BackColor = Color.LawnGreen;
+            }
+            else if(m_LabelCurrentPlayerName.Text == m_LabelSecondPlayerName.Text)
+            {
+                (sender as CardButton).BackColor = Color.MediumPurple;
+            }
+           */
+        }
+
     }
 }
