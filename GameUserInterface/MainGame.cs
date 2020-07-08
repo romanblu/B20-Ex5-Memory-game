@@ -56,7 +56,8 @@ namespace GameUserInterface
                 {
                     
                     Button card = new Button();
-                    card.Text = (i + j) .ToString();
+                   // card.Text = (i + j) .ToString()
+                    
                     card.Height = 60;
                     card.Width = 60;
                     card.Location = new Point(10 + (card.Width + 10) * i, 10 + (card.Height + 10) * j);

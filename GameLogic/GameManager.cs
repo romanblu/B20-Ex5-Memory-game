@@ -7,13 +7,8 @@ using System.Threading.Tasks;
 
 namespace GameLogic
 {
-    class GameManager
+    public class GameManager
     {
-        
-        public static void Main()
-        {
-
-                        
-        }
+     
     }
 }

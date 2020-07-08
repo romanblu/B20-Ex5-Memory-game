@@ -13,14 +13,14 @@ namespace GameUserInterface
         [STAThread]
         public static void Main()
         {
-            //  GameSettings gameForm = new GameSettings();
-            //  gameForm.ShowDialog();
+              GameSettings gameForm = new GameSettings();
+              gameForm.ShowDialog();
             //MainGame game = new MainGame(4, 4);
             //game.ShowDialog();
             
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainGame(5, 4, "Holy", "Moly"));
+           // Application.EnableVisualStyles();
+           // Application.SetCompatibleTextRenderingDefault(false);
+            //Application.Run(new MainGame(5, 4, "Holy", "Moly"));
         }
     }
 }
