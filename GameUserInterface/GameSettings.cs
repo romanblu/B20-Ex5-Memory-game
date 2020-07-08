@@ -154,14 +154,6 @@ namespace GameUserInterface
             }
             m_ButtonBoardSize.Text = columns + "x" + rows;
         }
-        void m_ButtonStart_Click(object sender, EventArgs e)
-        {
-            this.Close();
-            this.Hide();
-          //  string boardSize = m_ButtonBoardSize.Text;
-          //  char a = boardSize[0].ToString();
-            MainGame mainForm = new MainGame(4, 4, m_LabelFirstPlayer.Name, m_LabelSecondPlayer.Name);
-            mainForm.ShowDialog();
-        }
+        
     }
 }
