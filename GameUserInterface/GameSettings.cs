@@ -118,22 +118,30 @@ namespace GameUserInterface
                 MessageBox.Show("Player name not valid, use only characters");
             }
 
-            if (m_AgainstFriend && !PlayerStats.ValidateInputName(m_TextboxSecondPlayer.Text))
+            else if (m_AgainstFriend && !PlayerStats.ValidateInputName(m_TextboxSecondPlayer.Text))
             {
                 MessageBox.Show("Player name not valid, use only characters");
             }
+            else
+            {
+                this.Close();
+                
+            }
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
 
             if (!m_AgainstFriend)
             {
                 m_TextboxSecondPlayer.Text = "Computer";
             }
-
-            this.Close();
-            int rows = m_ButtonBoardSize.Text[2] - '0';
-            int columns = m_ButtonBoardSize.Text[0] - '0';
-            
+            this.Visible = false;
+            int rows = m_ButtonBoardSize.Text[0] - '0';
+            int columns = m_ButtonBoardSize.Text[2] - '0';
             MainGame mainGame = new MainGame(columns, rows, m_TextboxFirstPlayer.Text, m_TextboxSecondPlayer.Text);
-
+            mainGame.ShowDialog();
         }
 
         void m_ButtonBoardSize_Click(object sender, EventArgs e)
