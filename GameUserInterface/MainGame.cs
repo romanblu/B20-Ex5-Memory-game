@@ -15,7 +15,11 @@ namespace GameUserInterface
     {
         int m_Rows;
         int m_Columns;
-        
+        int m_FirstPlayerPairs = 0;
+        int m_SecondPlayerPairs = 0;
+        CardButton m_FirstCard;
+        CardButton m_SecondCard;
+
         Label m_LabelCurrentPlayer = new Label();
         Label m_LabelCurrentPlayerName = new Label();
         Label m_LabelFirstPlayerStats = new Label();
@@ -23,17 +27,24 @@ namespace GameUserInterface
 
         Label m_LabelFirstPlayerName = new Label();
         Label m_LabelSecondPlayerName = new Label();
-
         
+        string m_FirstPlayerName;
+        string m_SecondPlayerName;
+        string m_CurrentPlayer;
         List<Button> m_Cards = new List<Button>();
         char[] values;
         int[] indexesOfValues;
         GameManager gameManager;
-
+        private readonly Color k_FirstPlayerColor = Color.LawnGreen;
+        private readonly Color k_SecondPlayerColor = Color.MediumPurple;
+        private readonly Color k_ClosedCardColor = Color.DimGray;
         public MainGame(int i_Columns, int i_Rows, string i_FirstPlayerName, string i_SecondPlayerName)
         {
             m_Rows = i_Rows;
             m_Columns = i_Columns;
+            m_FirstPlayerName = i_FirstPlayerName;
+            m_SecondPlayerName = i_SecondPlayerName;
+            m_CurrentPlayer = i_FirstPlayerName;
             values = new char[i_Rows * i_Columns / 2];
             this.StartPosition = FormStartPosition.CenterScreen;
             this.Text = "Memory Game - Settings";
@@ -69,12 +80,12 @@ namespace GameUserInterface
             m_LabelFirstPlayerStats.AutoSize = true;
             m_LabelSecondPlayerStats.AutoSize = true;
 
-            m_LabelCurrentPlayer.BackColor = Color.LimeGreen;
-            m_LabelCurrentPlayerName.BackColor = Color.LimeGreen;
-            m_LabelFirstPlayerName.BackColor = Color.LimeGreen;
-            m_LabelFirstPlayerStats.BackColor = Color.LimeGreen;
-            m_LabelSecondPlayerName.BackColor = Color.BlueViolet;
-            m_LabelSecondPlayerStats.BackColor = Color.BlueViolet;
+            m_LabelCurrentPlayer.BackColor = k_FirstPlayerColor;
+            m_LabelCurrentPlayerName.BackColor = k_FirstPlayerColor;
+            m_LabelFirstPlayerName.BackColor = k_FirstPlayerColor;
+            m_LabelFirstPlayerStats.BackColor = k_FirstPlayerColor;
+            m_LabelSecondPlayerName.BackColor = k_SecondPlayerColor;
+            m_LabelSecondPlayerStats.BackColor = k_SecondPlayerColor;
 
             m_LabelCurrentPlayer.Location = new Point(10, m_Cards.ElementAt(m_Cards.Count()-1).Top + m_Cards.ElementAt(m_Cards.Count() - 1).Height + 15);
             m_LabelCurrentPlayerName.Location = new Point(m_LabelCurrentPlayer.Left + m_LabelCurrentPlayer.PreferredWidth, m_LabelCurrentPlayer.Top);
@@ -105,13 +116,12 @@ namespace GameUserInterface
                     card.Width = 60;
                     card.Location = new Point(10 + (card.Width + 10) * j, 10 + (card.Height + 10) * i);
                     m_Cards.Add(card);
+                    card.BackColor = k_ClosedCardColor;
                     card.Click += m_ButtonCard_Click;
                     this.Controls.Add(card);
-
                 }
             }
         }
-
         private void GenerateValues()
         {
             for(int i = 0; i < m_Rows * m_Columns / 2; i++)
@@ -123,33 +133,88 @@ namespace GameUserInterface
         void m_ButtonCard_Click(object sender, EventArgs e)
         {
             CardButton card = sender as CardButton;
+            OpenCard(card);
+            gameManager.Move(card.IndexOfValue);
             
-            gameManager.OpenCard(card.IndexOfValue);
+            if (gameManager.FirstMove)
+            {
+                m_FirstCard = card;    
+            }
+            else
+            {
+                m_SecondCard = card;
+                System.Threading.Thread.Sleep(2000);
 
-            // if first move
-            // open card in the logic , update ui
-
-            // if second move , dont match
-            // open card in logic and if doesnt match close the cards in the logic and ui 
-
-            // if second move and match 
-            // remove the cards from the available list in logic and ui dont close them , leave the same player for the 2nd move and add a point 
-
-            // Block unwanted inputs 
-
-
+                if (gameManager.CheckMatch())
+                {
+                    // we got a match
+                    UpdatePoints(m_CurrentPlayer);
+                }
+                else
+                {    
+                    SwitchPlayers();
+                    CloseCards();
+                }
+            }
             
-           // (sender as CardButton).Text = values[(sender as CardButton).IndexOfValue].ToString();
-           /*
-            if(m_LabelCurrentPlayerName.Text == m_LabelFirstPlayerName.Text)
+        }
+            
+        void OpenCard(CardButton i_Card) 
+        {
+            i_Card.Text = values[i_Card.IndexOfValue].ToString();
+
+            if (m_CurrentPlayer == m_FirstPlayerName)
             {
-                (sender as CardButton).BackColor = Color.LawnGreen;
+                i_Card.BackColor = k_FirstPlayerColor;
             }
-            else if(m_LabelCurrentPlayerName.Text == m_LabelSecondPlayerName.Text)
+
+            if (m_CurrentPlayer == m_SecondPlayerName)
             {
-                (sender as CardButton).BackColor = Color.MediumPurple;
+                i_Card.BackColor = k_SecondPlayerColor;
             }
-           */
+
+        }
+
+        void CloseCards()
+        {
+            m_FirstCard.Text = "";
+            m_SecondCard.Text = "";
+            m_FirstCard.BackColor = k_ClosedCardColor;
+            m_SecondCard.BackColor = k_ClosedCardColor;
+
+        }
+
+        void SwitchPlayers()
+        {
+            if (m_CurrentPlayer == m_FirstPlayerName)
+            {
+                m_CurrentPlayer = m_SecondPlayerName;
+                m_LabelCurrentPlayer.Text = m_CurrentPlayer;
+                m_LabelCurrentPlayer.BackColor = k_SecondPlayerColor;
+                m_LabelCurrentPlayerName.BackColor = k_SecondPlayerColor;
+            }
+            else
+            {
+                m_CurrentPlayer = m_FirstPlayerName;
+                m_LabelCurrentPlayer.Text = m_CurrentPlayer;
+                m_LabelCurrentPlayer.BackColor = k_FirstPlayerColor;
+                m_LabelCurrentPlayerName.BackColor = k_FirstPlayerColor;
+
+            }
+        }
+
+        void UpdatePoints(string i_CurrentPlayer)
+        {
+            if(i_CurrentPlayer == m_FirstPlayerName)
+            {
+                m_FirstPlayerPairs++;
+                m_LabelFirstPlayerStats.Text = m_FirstPlayerPairs + " Pairs";
+            }
+            else
+            {
+                m_SecondPlayerPairs++;
+                m_LabelSecondPlayerStats.Text = m_SecondPlayerPairs + " Pairs";
+            }
         }
 
     }
