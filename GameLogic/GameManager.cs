@@ -11,6 +11,7 @@ namespace GameLogic
     {
 
         int[] m_IndexesOfValues;
+        private List<int> indexAvai = new List<int>();
 
         public GameManager(int i_Rows, int i_Columns)
         {
@@ -47,6 +48,12 @@ namespace GameLogic
             }
         }
 
+        public static void OpenCard()
+        {
+            if()
+            {
+            }
+        }
         // make a list of available cards
 
         // open card
