@@ -10,12 +10,13 @@ namespace GameLogic
     public class GameManager
     {
 
-        int[] m_IndexesOfValues;   // a table that holds the idex of a value (letter) for every index
-        bool m_FirstMove = false;
+        private int[] m_IndexesOfValues;   // a table that holds the idex of a value (letter) for every index
+        private bool m_FirstMove = false;
         //List<int> m_AvailableCards;
-        int m_FirstMoveValue;
-        int m_SecondMoveValue;
-        int m_AvailableCards;
+        private int m_FirstMoveValue;
+        private int m_SecondMoveValue;
+        private int m_AvailableCards;
+        private bool m_WonRound = false;
 
         public GameManager(int i_Rows, int i_Columns)
         {
@@ -29,7 +30,8 @@ namespace GameLogic
         }
 
         public bool FirstMove { get { return m_FirstMove; } }
-
+        public bool WonRound { get { return m_WonRound; } }
+        
         public int[] GenerateRandomIndexes(int i_Rows, int i_Columns)
         {
             int[] indexes = new int[i_Rows * i_Columns];
@@ -47,7 +49,7 @@ namespace GameLogic
             return indexes;
         }
 
-        public static void Randomize(int[] items)
+        static void Randomize(int[] items)
         {
             Random rand = new Random();
 
@@ -60,35 +62,25 @@ namespace GameLogic
             }
         }
 
-        // make a list of available cards
-
-        // open card
-        public void OpenCard(int i_Index)
-        {
-            //m_AvailableCards.RemoveAt(m_AvailableCards.ElementAt(i_Index)); // getting the index of the element we want to remove and remove it
-        }
-        // close card
-        public void CloseCard(int i_Index)
-        {
-           // m_AvailableCards.Add(i_Index);
-        }
-        // if match
+        
         public void Move(int i_IndexOfValue)
         {
             if (!m_FirstMove)
             {
-                //OpenCard(i_IndexOfValue);
+                m_WonRound = false;
                 m_AvailableCards--;
                 m_FirstMoveValue = i_IndexOfValue;
                 m_FirstMove = true;
             }
             else
             {
-                //OpenCard(i_Index);
                 m_AvailableCards--;
-                //m_SecondMoveValue = m_IndexesOfValues[i_IndexOfValue];
                 m_SecondMoveValue = i_IndexOfValue;
                 m_FirstMove = false;
+                if(m_FirstMoveValue == m_SecondMoveValue)
+                {
+                    m_WonRound = true;
+                }
             }
 
         }
@@ -107,7 +99,6 @@ namespace GameLogic
 
         }
 
-        // against PC 
 
     }
 }

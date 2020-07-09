@@ -1,5 +1,4 @@
-﻿using GameLogic;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -8,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using GameLogic;
 
 namespace GameUserInterface
 {
@@ -35,6 +35,7 @@ namespace GameUserInterface
         char[] values;
         int[] indexesOfValues;
         GameManager gameManager;
+        
         private readonly Color k_FirstPlayerColor = Color.LawnGreen;
         private readonly Color k_SecondPlayerColor = Color.MediumPurple;
         private readonly Color k_ClosedCardColor = Color.DimGray;
@@ -109,8 +110,8 @@ namespace GameUserInterface
             {
                 for (int j = 0; j < m_Columns; j++)
                 {
-
-                    CardButton card = new CardButton(indexesOfValues[m_Rows * i + j]);
+                    int index = m_Rows * i + j;
+                    CardButton card = new CardButton(indexesOfValues[index], values[indexesOfValues[index]]);
                     card.Text = indexesOfValues[m_Rows * i + j].ToString();
                     card.Height = 60;
                     card.Width = 60;
@@ -133,9 +134,10 @@ namespace GameUserInterface
         void m_ButtonCard_Click(object sender, EventArgs e)
         {
             CardButton card = sender as CardButton;
+            //card.OpenCard();
             OpenCard(card);
             gameManager.Move(card.IndexOfValue);
-            
+            this.Refresh();
             if (gameManager.FirstMove)
             {
                 m_FirstCard = card;    
@@ -143,36 +145,37 @@ namespace GameUserInterface
             else
             {
                 m_SecondCard = card;
-                System.Threading.Thread.Sleep(2000);
-
-                if (gameManager.CheckMatch())
-                {
-                    // we got a match
-                    UpdatePoints(m_CurrentPlayer);
-                }
-                else
-                {    
-                    SwitchPlayers();
-                    CloseCards();
-                }
+                
+                 if (gameManager.CheckMatch())
+                 {
+                     // we got a match
+                     UpdatePoints(m_CurrentPlayer);
+                 }
+                 else
+                 {
+                     System.Threading.Thread.Sleep(2000);
+                     SwitchPlayers();
+                     CloseCards();
+                 }
+                
             }
-            
         }
             
         void OpenCard(CardButton i_Card) 
         {
             i_Card.Text = values[i_Card.IndexOfValue].ToString();
-
+            
             if (m_CurrentPlayer == m_FirstPlayerName)
             {
+                
                 i_Card.BackColor = k_FirstPlayerColor;
+                
             }
 
             if (m_CurrentPlayer == m_SecondPlayerName)
             {
                 i_Card.BackColor = k_SecondPlayerColor;
             }
-
         }
 
         void CloseCards()
@@ -199,7 +202,6 @@ namespace GameUserInterface
                 m_LabelCurrentPlayer.Text = m_CurrentPlayer;
                 m_LabelCurrentPlayer.BackColor = k_FirstPlayerColor;
                 m_LabelCurrentPlayerName.BackColor = k_FirstPlayerColor;
-
             }
         }
 
@@ -216,6 +218,5 @@ namespace GameUserInterface
                 m_LabelSecondPlayerStats.Text = m_SecondPlayerPairs + " Pairs";
             }
         }
-
     }
 }
