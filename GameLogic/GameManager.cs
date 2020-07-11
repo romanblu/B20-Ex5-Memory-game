@@ -82,7 +82,6 @@ namespace GameLogic
                     m_WonRound = true;
                 }
             }
-
         }
 
         public bool CheckMatch()
@@ -96,9 +95,6 @@ namespace GameLogic
                 m_AvailableCards += 2;
                 return false;
             }
-
         }
-
-
     }
 }
