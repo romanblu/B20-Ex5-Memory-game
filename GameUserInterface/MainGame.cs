@@ -153,7 +153,6 @@ namespace GameUserInterface
                  }
                  else
                  {
-
                      System.Threading.Thread.Sleep(2000); 
                      SwitchPlayers();
                      CloseCards();
