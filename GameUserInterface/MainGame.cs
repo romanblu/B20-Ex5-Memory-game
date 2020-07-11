@@ -53,7 +53,7 @@ namespace GameUserInterface
             m_LabelSecondPlayerName.Text = i_SecondPlayerName +": ";
             m_LabelFirstPlayerStats.Text = "0 Pairs";
             m_LabelSecondPlayerStats.Text = "0 Pairs";
-            m_LabelCurrentPlayer.Text = "Current Player: ";
+            m_LabelCurrentPlayer.Text = "Current Player:";
             m_LabelCurrentPlayerName.Text = i_FirstPlayerName;
             indexesOfValues = new int[i_Columns * i_Rows];
             gameManager = new GameManager(i_Rows, i_Columns);
@@ -112,7 +112,7 @@ namespace GameUserInterface
                 {
                     int index = m_Rows * i + j;
                     CardButton card = new CardButton(indexesOfValues[index], values[indexesOfValues[index]]);
-                    card.Text = indexesOfValues[m_Rows * i + j].ToString();
+                   // card.Text = indexesOfValues[m_Rows * i + j].ToString();
                     card.Height = 60;
                     card.Width = 60;
                     card.Location = new Point(10 + (card.Width + 10) * j, 10 + (card.Height + 10) * i);
@@ -187,19 +187,20 @@ namespace GameUserInterface
 
         }
 
+       
         void SwitchPlayers()
         {
             if (m_CurrentPlayer == m_FirstPlayerName)
             {
                 m_CurrentPlayer = m_SecondPlayerName;
-                m_LabelCurrentPlayer.Text = m_CurrentPlayer;
+                m_LabelCurrentPlayerName.Text = m_CurrentPlayer;
                 m_LabelCurrentPlayer.BackColor = k_SecondPlayerColor;
                 m_LabelCurrentPlayerName.BackColor = k_SecondPlayerColor;
             }
             else
             {
                 m_CurrentPlayer = m_FirstPlayerName;
-                m_LabelCurrentPlayer.Text = m_CurrentPlayer;
+                m_LabelCurrentPlayerName.Text = m_CurrentPlayer;
                 m_LabelCurrentPlayer.BackColor = k_FirstPlayerColor;
                 m_LabelCurrentPlayerName.BackColor = k_FirstPlayerColor;
             }
