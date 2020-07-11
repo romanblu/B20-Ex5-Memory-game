@@ -60,19 +60,10 @@ namespace GameUserInterface
             gameManager = new GameManager(i_Rows, i_Columns);
             GenerateValues();
             indexesOfValues = gameManager.GenerateRandomIndexes(i_Rows, i_Columns);
-            //testValues(indexesOfValues);
+            
         }
 
-        void testValues(char[] array)
-        {
-            StringBuilder testValues = new StringBuilder();
-            for(int i = 0; i <array.Length; i++)
-            {
-                testValues.Append( array[i] + " ");
-            }
-            Console.WriteLine(testValues);
-        }
-
+        
 
         protected override void OnLoad(EventArgs e)
         {
@@ -134,9 +125,7 @@ namespace GameUserInterface
                     card.Click += m_ButtonCard_Click;
                     card.Text = card.Value.ToString();
                     this.Controls.Add(card);
-
-                }
-                
+                }   
             }
         }
         
@@ -163,7 +152,7 @@ namespace GameUserInterface
             {
                 m_SecondCard = card;
                 
-                 if (gameManager.CheckMatch())
+                 if (gameManager.WonRound)
                  {
                      // we got a match
                      UpdatePoints(m_CurrentPlayer);
@@ -176,6 +165,10 @@ namespace GameUserInterface
                  }
                 
             }
+            if (gameManager.GameFinished)
+            {
+                MessageBox.Show("Game finished");
+            }
         }
             
         void OpenCard(CardButton i_Card) 
@@ -184,9 +177,7 @@ namespace GameUserInterface
             
             if (m_CurrentPlayer == m_FirstPlayerName)
             {
-                
                 i_Card.BackColor = k_FirstPlayerColor;
-                
             }
 
             if (m_CurrentPlayer == m_SecondPlayerName)
@@ -201,7 +192,6 @@ namespace GameUserInterface
             m_SecondCard.Text = "";
             m_FirstCard.BackColor = k_ClosedCardColor;
             m_SecondCard.BackColor = k_ClosedCardColor;
-
         }
 
        
