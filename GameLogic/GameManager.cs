@@ -12,7 +12,7 @@ namespace GameLogic
 
         private int[] m_IndexesOfValues;   // a table that holds the idex of a value (letter) for every index
         private bool m_FirstMove = false;
-        //List<int> m_AvailableCards;
+        
         private int m_FirstMoveValue;
         private int m_SecondMoveValue;
         private int m_AvailableCards;
@@ -24,6 +24,7 @@ namespace GameLogic
             m_IndexesOfValues = new int[i_Rows * i_Columns];
             m_AvailableCards = i_Rows * i_Columns;
             m_GameFinished = false;
+            m_FirstMove = false;
         }
 
         public bool GameFinished {  get { return m_GameFinished; } }
