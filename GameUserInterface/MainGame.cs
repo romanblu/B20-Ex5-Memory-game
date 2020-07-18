@@ -74,9 +74,8 @@ namespace GameUserInterface
 
         void InitializeComponents()
         {
-
+            
             InitializeCards();
-
             m_LabelCurrentPlayer.AutoSize = true;
             m_LabelCurrentPlayerName.AutoSize = true;
             m_LabelFirstPlayerName.AutoSize = true;
@@ -107,6 +106,7 @@ namespace GameUserInterface
         
         }
 
+        
         private void InitializeCards()
         {
             StringBuilder testValues = new StringBuilder();
@@ -124,10 +124,12 @@ namespace GameUserInterface
                     card.BackColor = k_ClosedCardColor;
                     card.Click += m_ButtonCard_Click;
                     card.Text = card.Value.ToString();
-                    this.Controls.Add(card);
+                    this.Controls.Add(card); 
                 }   
             }
+            
         }
+
         
         private void GenerateValues()
         {      

@@ -30,21 +30,19 @@ namespace GameLogic
         public bool GameFinished {  get { return m_GameFinished; } }
         public bool FirstMove { get { return m_FirstMove; } }
         public bool WonRound { get { return m_WonRound; } }
-        
+
         public int[] GenerateRandomIndexes(int i_Rows, int i_Columns)
         {
             int[] indexes = new int[i_Rows * i_Columns];
-            
-            
-            for(int i=0; i< i_Rows * i_Columns / 2; i++)
+
+            for (int i = 0; i < i_Rows * i_Columns / 2; i++)
             {
                 indexes[2 * i] = i;
-                indexes[(2 * i) + 1] = i+1;
-                
+                indexes[2 * i + 1] = i;
             }
 
-           // Randomize(indexes);
-            
+            Randomize(indexes);
+
             m_IndexesOfValues = indexes;
 
             return indexes;
