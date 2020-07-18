@@ -21,6 +21,8 @@ namespace GameUserInterface
             m_Value = i_Value;
         }
 
+        public char Value { get { return m_Value; } }
+
         public int IndexOfValue { get {return m_IndexOfValue; } }
         public int Columns { get { return m_Columns; } }
 

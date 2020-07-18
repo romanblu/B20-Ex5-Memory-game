@@ -39,6 +39,7 @@ namespace GameUserInterface
         private readonly Color k_FirstPlayerColor = Color.LawnGreen;
         private readonly Color k_SecondPlayerColor = Color.MediumPurple;
         private readonly Color k_ClosedCardColor = Color.DimGray;
+
         public MainGame(int i_Columns, int i_Rows, string i_FirstPlayerName, string i_SecondPlayerName)
         {
             m_Rows = i_Rows;
@@ -61,6 +62,8 @@ namespace GameUserInterface
             indexesOfValues = gameManager.GenerateRandomIndexes(i_Rows, i_Columns);
             
         }
+
+        
 
         protected override void OnLoad(EventArgs e)
         {
@@ -106,35 +109,38 @@ namespace GameUserInterface
 
         private void InitializeCards()
         {
+            StringBuilder testValues = new StringBuilder();
+
             for (int i = 0; i < m_Rows; i++)
             {
                 for (int j = 0; j < m_Columns; j++)
                 {
-                    int index = m_Rows * i + j;
+                    int index = m_Columns * i + j;
                     CardButton card = new CardButton(indexesOfValues[index], values[indexesOfValues[index]]);
-                    card.Text = indexesOfValues[m_Rows * i + j].ToString();// delete
                     card.Height = 60;
                     card.Width = 60;
                     card.Location = new Point(10 + (card.Width + 10) * j, 10 + (card.Height + 10) * i);
                     m_Cards.Add(card);
                     card.BackColor = k_ClosedCardColor;
                     card.Click += m_ButtonCard_Click;
+                    card.Text = card.Value.ToString();
                     this.Controls.Add(card);
-                }
+                }   
             }
         }
+        
         private void GenerateValues()
-        {
+        {      
             for(int i = 0; i < m_Rows * m_Columns / 2; i++)
             {
-                values[i] = (char)('A' + i);
+                values[i] = (char)('A' + i);       
             }
         }
-
+     
         void m_ButtonCard_Click(object sender, EventArgs e)
         {
             CardButton card = sender as CardButton;
-            //card.OpenCard();
+            
             OpenCard(card);
             gameManager.Move(card.IndexOfValue);
             this.Refresh();
@@ -146,7 +152,7 @@ namespace GameUserInterface
             {
                 m_SecondCard = card;
                 
-                 if (gameManager.CheckMatch())
+                 if (gameManager.WonRound)
                  {
                      // we got a match
                      UpdatePoints(m_CurrentPlayer);
@@ -159,6 +165,10 @@ namespace GameUserInterface
                  }
                 
             }
+            if (gameManager.GameFinished)
+            {
+                MessageBox.Show("Game finished");
+            }
         }
             
         void OpenCard(CardButton i_Card) 
@@ -167,9 +177,7 @@ namespace GameUserInterface
             
             if (m_CurrentPlayer == m_FirstPlayerName)
             {
-                
                 i_Card.BackColor = k_FirstPlayerColor;
-                
             }
 
             if (m_CurrentPlayer == m_SecondPlayerName)
@@ -184,7 +192,6 @@ namespace GameUserInterface
             m_SecondCard.Text = "";
             m_FirstCard.BackColor = k_ClosedCardColor;
             m_SecondCard.BackColor = k_ClosedCardColor;
-
         }
 
        
