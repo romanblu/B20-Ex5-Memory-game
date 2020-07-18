@@ -142,16 +142,16 @@ namespace GameUserInterface
         void m_ButtonCard_Click(object sender, EventArgs e)
         {
             CardButton card = sender as CardButton;
-            
-            OpenCard(card);
-            gameManager.Move(card.IndexOfValue);
-            this.Refresh();
-            if (gameManager.FirstMove)
-            {
+          
+              OpenCard(card);
+              gameManager.Move(card.IndexOfValue);
+              this.Refresh();
+              if (gameManager.FirstMove)
+              {
                 m_FirstCard = card;    
-            }
-            else
-            {
+              }
+              else
+              {
                 m_SecondCard = card;
                 
                  if (gameManager.WonRound)
@@ -166,7 +166,7 @@ namespace GameUserInterface
                      CloseCards();
                  }
                 
-            }
+              }
             if (gameManager.GameFinished)
             {
                 MessageBox.Show("Game finished");

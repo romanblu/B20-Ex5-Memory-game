@@ -10,7 +10,7 @@ namespace GameLogic
     public class GameManager
     {
 
-        private int[] m_IndexesOfValues;   // a table that holds the idex of a value (letter) for every index
+        private int[] m_IndexesOfValues;   // a table that holds the index of a value (letter) for every index
         private bool m_FirstMove = false;
         
         private int m_FirstMoveValue;
@@ -91,7 +91,7 @@ namespace GameLogic
                 }
             }
         }
-
+       
         public bool CheckMatch()
         {
             if(m_FirstMoveValue == m_SecondMoveValue)
