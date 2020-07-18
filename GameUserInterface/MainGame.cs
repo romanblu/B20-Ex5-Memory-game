@@ -184,10 +184,7 @@ namespace GameUserInterface
             base.OnClosed(e);
             if(result == DialogResult.Yes)
             {
-                //check why not closed
-                this.Hide();
-                this.Close();
-                //this.Visible = false;
+                this.Visible = false;
                 MainGame newGame = new MainGame(m_Columns, m_Rows, m_FirstPlayerName,m_SecondPlayerName);
                 newGame.ShowDialog();
             }

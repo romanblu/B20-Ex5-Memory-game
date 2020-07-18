@@ -91,7 +91,23 @@ namespace GameLogic
                 }
             }
         }
-       
+
+        // get the length thaht he can randonm an index from
+       public void ComputerMove()
+       {
+            this.Refresh();
+            System.Threading.Thread.Sleep(500);
+            Random randomIndex = new Random();
+            int indexOfValue = randomIndex.Next();
+              if (!m_FirstMove)
+              {
+                m_WonRound = false;
+                m_AvailableCards--;
+                m_FirstMoveValue = indexOfValue;
+                m_FirstMove = true;
+              } 
+
+       }
         public bool CheckMatch()
         {
             if(m_FirstMoveValue == m_SecondMoveValue)
