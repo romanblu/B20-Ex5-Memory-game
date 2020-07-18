@@ -12,19 +12,27 @@ namespace GameLogic
 
         private int[] m_IndexesOfValues;   // a table that holds the index of a value (letter) for every index
         private bool m_FirstMove = false;
-        
+        private List<int> m_AvailableIndexes;
         private int m_FirstMoveValue;
         private int m_SecondMoveValue;
         private int m_AvailableCards;
         private bool m_WonRound = false;
         private bool m_GameFinished;
-
+        
         public GameManager(int i_Rows, int i_Columns)
         {
             m_IndexesOfValues = new int[i_Rows * i_Columns];
+            m_IndexesOfValues = GenerateRandomIndexes(i_Rows,i_Columns);
+            
             m_AvailableCards = i_Rows * i_Columns;
             m_GameFinished = false;
             m_FirstMove = false;
+            m_AvailableIndexes = new List<int>();
+
+            for(int i=0;i<i_Rows * i_Columns; i++)
+            {
+                m_AvailableIndexes.Add(m_IndexesOfValues[i]);
+            }
         }
 
         public bool GameFinished {  get { return m_GameFinished; } }
@@ -66,6 +74,7 @@ namespace GameLogic
         {
             if (!m_FirstMove)
             {
+                
                 m_WonRound = false;
                 m_AvailableCards--;
                 m_FirstMoveValue = i_IndexOfValue;
@@ -73,21 +82,25 @@ namespace GameLogic
             }
             else
             {
-                m_AvailableCards--;
+                
+                //m_AvailableCards--;
                 m_SecondMoveValue = i_IndexOfValue;
                 m_FirstMove = false;
                 if(m_FirstMoveValue == m_SecondMoveValue)
                 {
                     m_WonRound = true;
-
-                    if(m_AvailableCards == 0)
+                    m_AvailableIndexes.Remove(m_FirstMoveValue);
+                    m_AvailableIndexes.Remove(m_SecondMoveValue);
+                    
+                    if (m_AvailableIndexes.Count == 0)
                     {
                         m_GameFinished = true;
                     }
                 }
                 else
                 {
-                    m_AvailableCards += 2;
+                //    m_AvailableCards += 2;
+                   
                 }
             }
         }
@@ -95,7 +108,8 @@ namespace GameLogic
         // get the length thaht he can randonm an index from
        public void ComputerMove()
        {
-            this.Refresh();
+            
+            //this.Refresh();
             System.Threading.Thread.Sleep(500);
             Random randomIndex = new Random();
             int indexOfValue = randomIndex.Next();
@@ -112,7 +126,7 @@ namespace GameLogic
         {
             if(m_FirstMoveValue == m_SecondMoveValue)
             {
-                if(m_AvailableCards == 0)
+                if(m_AvailableIndexes.Count == 0)
                 {
                     m_GameFinished = true;
                 }
@@ -120,7 +134,7 @@ namespace GameLogic
             }
             else
             {
-                m_AvailableCards += 2;
+               // m_AvailableCards += 2;
                 return false;
             }
         }
