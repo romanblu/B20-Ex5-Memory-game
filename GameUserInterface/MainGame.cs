@@ -13,6 +13,7 @@ namespace GameUserInterface
 {
     public partial class MainGame : Form
     {
+        DialogResult result;//added
         int m_Rows;
         int m_Columns;
         int m_FirstPlayerPairs = 0;
@@ -142,7 +143,7 @@ namespace GameUserInterface
         void m_ButtonCard_Click(object sender, EventArgs e)
         {
             CardButton card = sender as CardButton;
-          
+            
               OpenCard(card);
               gameManager.Move(card.IndexOfValue);
               this.Refresh();
@@ -169,10 +170,52 @@ namespace GameUserInterface
               }
             if (gameManager.GameFinished)
             {
-                MessageBox.Show("Game finished");
+               result = MessageBox.Show(string.Format("{0}\n\n Would you like to play again?", GetResultLine()), "Game Result", MessageBoxButtons.YesNo);
+          
+               if(result == DialogResult.No)
+               {
+                   this.Close();
+               }
             }
         }
-            
+        
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+            if(result == DialogResult.Yes)
+            {
+                //check why not closed
+                this.Hide();
+                this.Close();
+                //this.Visible = false;
+                MainGame newGame = new MainGame(m_Columns, m_Rows, m_FirstPlayerName,m_SecondPlayerName);
+                newGame.ShowDialog();
+            }
+        }
+
+         public string GetResultLine()
+        {
+            string result;
+            if(m_FirstPlayerPairs > m_SecondPlayerPairs)
+            {
+                result = m_FirstPlayerName + " is the winner!!!!";
+            }
+            else if((m_SecondPlayerPairs > m_FirstPlayerPairs) && (m_SecondPlayerName != "-computer"))
+            {
+                result = m_SecondPlayerName + " is the winner!!!!";
+            }
+            else if(m_SecondPlayerPairs > m_FirstPlayerPairs)
+            {
+                result = "The computer won";
+            }
+            else
+            {
+                result = "It's a draw";
+            }
+
+            return result;
+        }
+
         void OpenCard(CardButton i_Card) 
         {
             i_Card.Text = values[i_Card.IndexOfValue].ToString();
