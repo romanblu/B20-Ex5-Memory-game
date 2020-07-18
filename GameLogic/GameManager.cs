@@ -36,13 +36,15 @@ namespace GameLogic
         {
             int[] indexes = new int[i_Rows * i_Columns];
             
-            for(int i=0;i< i_Rows * i_Columns / 2; i++)
+            
+            for(int i=0; i< i_Rows * i_Columns / 2; i++)
             {
                 indexes[2 * i] = i;
-                indexes[2 * i + 1] = i;
+                indexes[(2 * i) + 1] = i+1;
+                
             }
 
-            Randomize(indexes);
+           // Randomize(indexes);
             
             m_IndexesOfValues = indexes;
 

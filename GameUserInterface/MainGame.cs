@@ -112,7 +112,7 @@ namespace GameUserInterface
                 {
                     int index = m_Rows * i + j;
                     CardButton card = new CardButton(indexesOfValues[index], values[indexesOfValues[index]]);
-                   // card.Text = indexesOfValues[m_Rows * i + j].ToString();
+                    card.Text = indexesOfValues[m_Rows * i + j].ToString();// delete
                     card.Height = 60;
                     card.Width = 60;
                     card.Location = new Point(10 + (card.Width + 10) * j, 10 + (card.Height + 10) * i);
