@@ -176,19 +176,16 @@ namespace GameUserInterface
                {
                    this.Close();
                }
-            }
-        }
-        
-        protected override void OnClosed(EventArgs e)
-        {
-            base.OnClosed(e);
-            if(result == DialogResult.Yes)
-            {
+               else if(result == DialogResult.Yes)
+               {
                 this.Visible = false;
                 MainGame newGame = new MainGame(m_Columns, m_Rows, m_FirstPlayerName,m_SecondPlayerName);
                 newGame.ShowDialog();
+               }
             }
         }
+        
+       
 
          public string GetResultLine()
         {
