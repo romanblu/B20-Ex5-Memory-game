@@ -19,6 +19,7 @@ namespace GameLogic
         private bool m_WonRound = false;
         private bool m_GameFinished;
         
+        
         public GameManager(int i_Rows, int i_Columns)
         {
             m_IndexesOfValues = new int[i_Rows * i_Columns];
@@ -72,6 +73,7 @@ namespace GameLogic
         
         public void Move(int i_IndexOfValue)
         {
+            
             if (!m_FirstMove)
             {
                 
@@ -91,6 +93,7 @@ namespace GameLogic
                     m_WonRound = true;
                     m_AvailableIndexes.Remove(m_FirstMoveValue);
                     m_AvailableIndexes.Remove(m_SecondMoveValue);
+                   
                     
                     if (m_AvailableIndexes.Count == 0)
                     {

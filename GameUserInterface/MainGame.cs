@@ -20,6 +20,7 @@ namespace GameUserInterface
         int m_SecondPlayerPairs = 0;
         CardButton m_FirstCard;
         CardButton m_SecondCard;
+        
 
         Label m_LabelCurrentPlayer = new Label();
         Label m_LabelCurrentPlayerName = new Label();
@@ -29,6 +30,7 @@ namespace GameUserInterface
         Label m_LabelFirstPlayerName = new Label();
         Label m_LabelSecondPlayerName = new Label();
         
+        bool m_ButtonEnable = true;// added
         string m_FirstPlayerName;
         string m_SecondPlayerName;
         string m_CurrentPlayer;
@@ -123,9 +125,14 @@ namespace GameUserInterface
                     card.Location = new Point(10 + (card.Width + 10) * j, 10 + (card.Height + 10) * i);
                     m_Cards.Add(card);
                     card.BackColor = k_ClosedCardColor;
-                    card.Click += m_ButtonCard_Click;
-                    card.Text = card.Value.ToString();
-                    this.Controls.Add(card); 
+                    if(m_ButtonEnable == true)
+                    {
+                        card.Click += m_ButtonCard_Click;
+                        card.Text = card.Value.ToString();
+                        this.Controls.Add(card); 
+                    }
+                    
+                    
                 }   
             }
             
@@ -142,32 +149,39 @@ namespace GameUserInterface
      
         void m_ButtonCard_Click(object sender, EventArgs e)
         {
+            
             CardButton card = sender as CardButton;
             
-              OpenCard(card);
-              gameManager.Move(card.IndexOfValue);
-              this.Refresh();
-              if (gameManager.FirstMove)
-              {
-                m_FirstCard = card;    
-              }
-              else
-              {
-                m_SecondCard = card;
-                
-                 if (gameManager.WonRound)
-                 {
-                     // we got a match
-                     UpdatePoints(m_CurrentPlayer);
-                 }
-                 else
-                 {
-                     System.Threading.Thread.Sleep(2000); 
-                     SwitchPlayers();
-                     CloseCards();
-                 }
-                
-              }
+            OpenCard(card);
+            gameManager.Move(card.IndexOfValue);
+            this.Refresh();
+
+            if (gameManager.FirstMove)
+            {
+                m_FirstCard = card; 
+            }
+            else 
+            {
+                  m_ButtonEnable = false;
+                  m_SecondCard = card; 
+                   
+                  if (gameManager.WonRound)
+                  {
+                   // we got a match
+                   UpdatePoints(m_CurrentPlayer);
+                  }
+                  else
+                  {
+                    
+                    System.Threading.Thread.Sleep(2000); 
+                    secondRound = true;
+                    SwitchPlayers();
+                    CloseCards();
+                  }    
+            }
+
+           
+
             if (gameManager.GameFinished)
             {
                result = MessageBox.Show(string.Format("{0}\n\n Would you like to play again?", GetResultLine()), "Game Result", MessageBoxButtons.YesNo);
@@ -178,9 +192,9 @@ namespace GameUserInterface
                }
                else if(result == DialogResult.Yes)
                {
-                this.Visible = false;
-                MainGame newGame = new MainGame(m_Columns, m_Rows, m_FirstPlayerName,m_SecondPlayerName);
-                newGame.ShowDialog();
+                 this.Visible = false;
+                 MainGame newGame = new MainGame(m_Columns, m_Rows, m_FirstPlayerName,m_SecondPlayerName);
+                 newGame.ShowDialog();
                }
             }
         }
