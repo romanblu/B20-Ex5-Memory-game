@@ -146,31 +146,55 @@ namespace GameUserInterface
                 gameManager.Move(card.ButtonIndex);
                 this.Refresh(); 
             }
-            else if(m_ButtonEnable == true && card.Text == "" &&  m_CurrentPlayer == "Computer" )//added
+
+            if(m_CurrentPlayer == "Computer")
             {
-                ComputerTurn();
+                System.Threading.Thread.Sleep(500);
+                OpenCard(card);
+                gameManager.Move(card.ButtonIndex);
+                this.Refresh();
+                System.Threading.Thread.Sleep(500);
+
             }
 
             if (gameManager.FirstMove)
             {
-                m_FirstCard = card; 
+                m_FirstCard = card;
+
+                if ( m_CurrentPlayer == "Computer")
+                {
+                    Console.WriteLine("PC 2nd move");
+                    System.Threading.Thread.Sleep(1000);
+                    ComputerTurn();
+                }
             }
             else 
             {
-                  m_ButtonEnable = false;
-                  m_SecondCard = card; 
+                
+                   m_ButtonEnable = false;
+                   m_SecondCard = card; 
                    
                   if (gameManager.WonRound)
                   {
                    // we got a match
                     UpdatePoints(m_CurrentPlayer);
+
+                    if(m_CurrentPlayer == "Computer")
+                    {
+                        ComputerTurn();
+                    }
                   }
                   else
                   {
                     System.Threading.Thread.Sleep(2000);
                     SwitchPlayers();
                     CloseCards();
-                  }    
+                    if(m_CurrentPlayer == "Computer")
+                    {
+                        ComputerTurn();
+
+                    }
+                }    
             }
 
             if (gameManager.GameFinished)
@@ -194,14 +218,11 @@ namespace GameUserInterface
          {
             
             this.Refresh();
+
             int index = gameManager.GetRandomAvaiableIndex();
-            //m_Cards.ElementAt(index).
-            OpenCard(m_Cards.ElementAt(index) as CardButton);
-            gameManager.Move(index);
-            this.Refresh();
+            (m_Cards.ElementAt(index) as CardButton).PerformClick();
 
-
-         }
+        }
 
         public string GetResultLine()
          {
