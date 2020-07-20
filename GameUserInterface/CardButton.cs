@@ -14,12 +14,16 @@ namespace GameUserInterface
         private int m_Columns;
         private char m_Value;
         private int m_IndexOfValue;
+        private int m_ButtonIndex;
 
-        public CardButton(int i_Index, char i_Value)
+        public CardButton(int i_Index, char i_Value, int i_ButtonIndex)
         {
             m_IndexOfValue = i_Index;
             m_Value = i_Value;
+            m_ButtonIndex = i_ButtonIndex;
         }
+
+        public int ButtonIndex { get { return m_ButtonIndex; }  }
 
         public char Value { get { return m_Value; } }
 

@@ -34,7 +34,6 @@ namespace GameUserInterface
         public GameSettings()
         {
             this.Size = new Size(400, 300);
-            //this.FormBorderStyle = FormBorderStyle.FixedToolWindow;
             this.StartPosition = FormStartPosition.CenterScreen;
             this.Text = "Memory Game - Settings";
             

@@ -105,34 +105,26 @@ namespace GameUserInterface
             this.Controls.AddRange(new Control[] { m_LabelSecondPlayerStats, m_LabelSecondPlayerName, m_LabelCurrentPlayer, m_LabelCurrentPlayerName, m_LabelFirstPlayerName, m_LabelFirstPlayerStats });
 
             this.Size = new Size( m_Columns * ( 60 + 10) + 20 , m_LabelSecondPlayerStats.Bottom + 50);
-        
-        
         }
-
         
         private void InitializeCards()
         {
-            StringBuilder testValues = new StringBuilder();
-
             for (int i = 0; i < m_Rows; i++)
             {
                 for (int j = 0; j < m_Columns; j++)
                 {
                     int index = m_Columns * i + j;
-                    CardButton card = new CardButton(indexesOfValues[index], values[indexesOfValues[index]]);
+                    CardButton card = new CardButton(indexesOfValues[index], values[indexesOfValues[index]], index);
                     card.Height = 60;
                     card.Width = 60;
                     card.Location = new Point(10 + (card.Width + 10) * j, 10 + (card.Height + 10) * i);
                     m_Cards.Add(card);
                     card.BackColor = k_ClosedCardColor;
                     card.Click += m_ButtonCard_Click;
-                    //card.Text = card.Value.ToString();
                     this.Controls.Add(card); 
                 }   
-            }
-            
+            }   
         }
-
         
         private void GenerateValues()
         {      
@@ -150,11 +142,11 @@ namespace GameUserInterface
             if(m_ButtonEnable == true && card.Text == "")
             {
                 OpenCard(card);
-                gameManager.Move(card.IndexOfValue);
+                gameManager.Move(card.ButtonIndex);
                 this.Refresh(); 
             }
 
-           
+            
             if (gameManager.FirstMove)
             {
                 m_FirstCard = card; 
@@ -188,9 +180,10 @@ namespace GameUserInterface
                }
                else if(result == DialogResult.Yes)
                {
-                 this.Visible = false;
-                 MainGame newGame = new MainGame(m_Columns, m_Rows, m_FirstPlayerName,m_SecondPlayerName);
-                 newGame.ShowDialog();
+                    this.Visible = false;
+                 //MainGame newGame = new MainGame(m_Columns, m_Rows, m_FirstPlayerName,m_SecondPlayerName);
+                    GameSettings newGame = new GameSettings();
+                    newGame.ShowDialog();
                }
             }
         }
