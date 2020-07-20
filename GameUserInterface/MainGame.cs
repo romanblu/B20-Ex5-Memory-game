@@ -139,11 +139,15 @@ namespace GameUserInterface
             
             CardButton card = sender as CardButton;
             
-            if(m_ButtonEnable == true && card.Text == "")
+            if(m_ButtonEnable == true && card.Text == "" && m_CurrentPlayer != "Computer" )//added
             {
                 OpenCard(card);
                 gameManager.Move(card.ButtonIndex);
                 this.Refresh(); 
+            }
+            else if(m_ButtonEnable == true && card.Text == "" &&  m_CurrentPlayer == "Computer" )//added
+            {
+                ComputerTurn();
             }
 
             
@@ -160,7 +164,6 @@ namespace GameUserInterface
                   {
                    // we got a match
                     UpdatePoints(m_CurrentPlayer);
-                  
                   }
                   else
                   {
@@ -188,10 +191,22 @@ namespace GameUserInterface
             }
         }
         
-       
+         public void ComputerTurn()
+         {
+            
+            this.Refresh();
+            System.Threading.Thread.Sleep(500);
+            Random randomIndex = new Random();
+            int indexOfValue = randomIndex.Next(0, gameManager.AvailableIndexes.Count);
+           
+            OpenCard(card);
+            gameManager.Move(indexOfValue);
+            this.Refresh(); 
+
+         }
 
          public string GetResultLine()
-        {
+         {
             string result;
             if(m_FirstPlayerPairs > m_SecondPlayerPairs)
             {
