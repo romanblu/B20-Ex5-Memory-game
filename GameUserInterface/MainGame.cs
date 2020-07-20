@@ -15,30 +15,30 @@ namespace GameUserInterface
     public partial class MainGame : Form
     {
         DialogResult result;
-        int m_Rows;
-        int m_Columns;
-        int m_FirstPlayerPairs = 0;
-        int m_SecondPlayerPairs = 0;
-        CardButton m_FirstCard;
-        CardButton m_SecondCard;
+        private int m_Rows;
+        private int m_Columns;
+        private int m_FirstPlayerPairs = 0;
+        private int m_SecondPlayerPairs = 0;
+        private CardButton m_FirstCard;
+        private CardButton m_SecondCard;
         
 
-        Label m_LabelCurrentPlayer = new Label();
-        Label m_LabelCurrentPlayerName = new Label();
-        Label m_LabelFirstPlayerStats = new Label();
-        Label m_LabelSecondPlayerStats = new Label();
+        private Label m_LabelCurrentPlayer = new Label();
+        private Label m_LabelCurrentPlayerName = new Label();
+        private Label m_LabelFirstPlayerStats = new Label();
+        private Label m_LabelSecondPlayerStats = new Label();
 
-        Label m_LabelFirstPlayerName = new Label();
-        Label m_LabelSecondPlayerName = new Label();
+        private Label m_LabelFirstPlayerName = new Label();
+        private Label m_LabelSecondPlayerName = new Label();
         
-        bool m_ButtonEnable = true;
-        string m_FirstPlayerName;
-        string m_SecondPlayerName;
-        string m_CurrentPlayer;
-        List<Button> m_Cards = new List<Button>();
-        char[] values;
-        int[] indexesOfValues;
-        GameManager gameManager;
+        private bool m_ButtonEnable = true;
+        private string m_FirstPlayerName;
+        private string m_SecondPlayerName;
+        private string m_CurrentPlayer;
+        private List<Button> m_Cards = new List<Button>();
+        private char[] values;
+        private int[] indexesOfValues;
+        private GameManager gameManager;
         
         private readonly Color k_FirstPlayerColor = Color.LawnGreen;
         private readonly Color k_SecondPlayerColor = Color.MediumPurple;
@@ -214,16 +214,16 @@ namespace GameUserInterface
             }
         }
         
-         public void ComputerTurn()
-         {
+        public void ComputerTurn()
+        {
             this.Refresh();
             int index = gameManager.GetRandomAvaiableIndex();
             (m_Cards.ElementAt(index) as CardButton).PerformClick();
 
-         }
+        }
 
         public string GetResultLine()
-         {
+        {
             string result;
             if(m_FirstPlayerPairs > m_SecondPlayerPairs)
             {
@@ -245,7 +245,7 @@ namespace GameUserInterface
             return result;
         }
 
-        void OpenCard(CardButton i_Card) 
+        private void OpenCard(CardButton i_Card) 
         {
             i_Card.Text = values[i_Card.IndexOfValue].ToString();
             
@@ -260,7 +260,7 @@ namespace GameUserInterface
             }
         }
 
-        void CloseCards()
+        private void CloseCards()
         {
             m_FirstCard.Text = "";
             m_SecondCard.Text = "";
@@ -269,7 +269,7 @@ namespace GameUserInterface
         }
 
        
-        void SwitchPlayers()
+        private void SwitchPlayers()
         {
             m_ButtonEnable = true;
             if (m_CurrentPlayer == m_FirstPlayerName)
@@ -288,7 +288,7 @@ namespace GameUserInterface
             }
         }
 
-        void UpdatePoints(string i_CurrentPlayer)
+        private void UpdatePoints(string i_CurrentPlayer)
         {
             m_ButtonEnable = true;
             if(i_CurrentPlayer == m_FirstPlayerName)
