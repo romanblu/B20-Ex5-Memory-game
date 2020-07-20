@@ -145,10 +145,10 @@ namespace GameUserInterface
                 gameManager.Move(card.ButtonIndex);
                 this.Refresh(); 
             }
-            else if(m_ButtonEnable == true && card.Text == "" &&  m_CurrentPlayer == "Computer" )//added
-            {
-                ComputerTurn();
-            }
+          //  else if(m_ButtonEnable == true && card.Text == "" &&  m_CurrentPlayer == "Computer" )//added
+          //  {
+          //      ComputerTurn();
+         //   }
 
             
             if (gameManager.FirstMove)
@@ -184,20 +184,18 @@ namespace GameUserInterface
                else if(result == DialogResult.Yes)
                {
                     this.Visible = false;
-                 //MainGame newGame = new MainGame(m_Columns, m_Rows, m_FirstPlayerName,m_SecondPlayerName);
-                    GameSettings newGame = new GameSettings();
+                    MainGame newGame = new MainGame(m_Columns, m_Rows, m_FirstPlayerName,m_SecondPlayerName);
                     newGame.ShowDialog();
                }
             }
         }
         
-         public void ComputerTurn()
+        public void ComputerTurn()
          {
-            
             this.Refresh();
-            System.Threading.Thread.Sleep(500);
+            //System.Threading.Thread.Sleep(500);
             Random randomIndex = new Random();
-            int indexOfValue = randomIndex.Next(0, gameManager.AvailableIndexes.Count);
+            int indexOfValue = randomIndex.Next(0, gameManager.m_AvailableIndexes.Count);
             
             OpenCard(m_Cards[indexOfValue]);
             gameManager.Move(indexOfValue);

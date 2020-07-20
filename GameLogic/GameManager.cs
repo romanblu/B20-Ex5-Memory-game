@@ -36,8 +36,6 @@ namespace GameLogic
             {
                 m_AvailableIndexes.Add(i, m_IndexesOfValues[i]);
             }
-            
-
         }
 
         public bool GameFinished {  get { return m_GameFinished; } }
@@ -104,28 +102,9 @@ namespace GameLogic
                         m_GameFinished = true;
                     }
                 }
-                else
-                {
-                
-                   
-                }
             }
         }
 
-        // get the length thaht he can randonm an index from
-       public void ComputerMove()
-       {    
-            System.Threading.Thread.Sleep(500);
-            Random randomIndex = new Random();
-            int indexOfValue = randomIndex.Next();
-              if (!m_FirstMove)
-              {
-                m_WonRound = false;
-                m_AvailableCards--;
-                m_FirstMoveValue = indexOfValue;
-                m_FirstMove = true;
-              } 
-       }
         public bool CheckMatch()
         {
             if(m_FirstMoveValue == m_SecondMoveValue)
