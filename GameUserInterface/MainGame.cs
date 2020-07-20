@@ -167,7 +167,7 @@ namespace GameUserInterface
                   }
                   else
                   {
-                    System.Threading.Thread.Sleep(1000);
+                    System.Threading.Thread.Sleep(2000);
                     SwitchPlayers();
                     CloseCards();
                   }    
@@ -197,10 +197,10 @@ namespace GameUserInterface
             this.Refresh();
             System.Threading.Thread.Sleep(500);
             Random randomIndex = new Random();
-           // int indexOfValue = randomIndex.Next(0, gameManager.AvailableIndexes.Count);
-           
-           // OpenCard(card);
-           // gameManager.Move(indexOfValue);
+            int indexOfValue = randomIndex.Next(0, gameManager.AvailableIndexes.Count);
+            
+            OpenCard(m_Cards[indexOfValue]);
+            gameManager.Move(indexOfValue);
             this.Refresh(); 
 
          }
