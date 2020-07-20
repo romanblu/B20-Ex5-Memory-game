@@ -125,12 +125,9 @@ namespace GameUserInterface
                     card.Location = new Point(10 + (card.Width + 10) * j, 10 + (card.Height + 10) * i);
                     m_Cards.Add(card);
                     card.BackColor = k_ClosedCardColor;
-                    if(m_ButtonEnable == true)
-                    {
-                        card.Click += m_ButtonCard_Click;
-                        card.Text = card.Value.ToString();
-                        this.Controls.Add(card); 
-                    } 
+                    card.Click += m_ButtonCard_Click;
+                    //card.Text = card.Value.ToString();
+                    this.Controls.Add(card); 
                 }   
             }
             
@@ -150,10 +147,14 @@ namespace GameUserInterface
             
             CardButton card = sender as CardButton;
             
-            OpenCard(card);
-            gameManager.Move(card.IndexOfValue);
-            this.Refresh();
+            if(m_ButtonEnable == true && card.Text == "")
+            {
+                OpenCard(card);
+                gameManager.Move(card.IndexOfValue);
+                this.Refresh(); 
+            }
 
+           
             if (gameManager.FirstMove)
             {
                 m_FirstCard = card; 
@@ -166,18 +167,16 @@ namespace GameUserInterface
                   if (gameManager.WonRound)
                   {
                    // we got a match
-                   UpdatePoints(m_CurrentPlayer);
+                    UpdatePoints(m_CurrentPlayer);
+                  
                   }
                   else
                   {
-                    
-                    System.Threading.Thread.Sleep(2000); 
+                    System.Threading.Thread.Sleep(2000);
                     SwitchPlayers();
                     CloseCards();
                   }    
             }
-
-           
 
             if (gameManager.GameFinished)
             {
@@ -247,6 +246,7 @@ namespace GameUserInterface
        
         void SwitchPlayers()
         {
+            m_ButtonEnable = true;//added
             if (m_CurrentPlayer == m_FirstPlayerName)
             {
                 m_CurrentPlayer = m_SecondPlayerName;
@@ -265,6 +265,7 @@ namespace GameUserInterface
 
         void UpdatePoints(string i_CurrentPlayer)
         {
+            m_ButtonEnable = true;//added
             if(i_CurrentPlayer == m_FirstPlayerName)
             {
                 m_FirstPlayerPairs++;
