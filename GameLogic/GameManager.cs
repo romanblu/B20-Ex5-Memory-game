@@ -12,16 +12,16 @@ namespace GameLogic
 
         private int[] m_IndexesOfValues;   // a table that holds the index of a value (letter) for every index
         private bool m_FirstMove = false;
-        private List<int> m_AvailableIndexes;//added
+        private Dictionary<int, int> m_AvailableIndexes;
+        
         private int m_FirstMoveValue;
         private int m_SecondMoveValue;
         private int m_AvailableCards;
         private bool m_WonRound = false;
         private bool m_GameFinished;
+        private int m_FirstMoveButtonIndex;
+        private int m_SecondMoveButtonIndex;
 
-        public List<int> AvailableIndexes {get {return m_AvailableIndexes;}}
-        
-        
         public GameManager(int i_Rows, int i_Columns)
         {
             m_IndexesOfValues = new int[i_Rows * i_Columns];
@@ -30,12 +30,17 @@ namespace GameLogic
             m_AvailableCards = i_Rows * i_Columns;
             m_GameFinished = false;
             m_FirstMove = false;
-            m_AvailableIndexes = new List<int>();
+            m_AvailableIndexes = new Dictionary<int, int>();
 
             for(int i=0;i<i_Rows * i_Columns; i++)
             {
-                m_AvailableIndexes.Add(m_IndexesOfValues[i]);
+                m_AvailableIndexes.Add(i, m_IndexesOfValues[i]);
             }
+            for(int i = 0; i < m_IndexesOfValues.Length; i++)
+            {
+                Console.WriteLine(m_AvailableIndexes.ElementAt(i));
+            }
+
         }
 
         public bool GameFinished {  get { return m_GameFinished; } }
@@ -55,7 +60,6 @@ namespace GameLogic
             Randomize(indexes);
 
             m_IndexesOfValues = indexes;
-            m_AvailableIndexes = new List<int>(indexes.Length);//added
 
             return indexes;
         }
@@ -74,28 +78,29 @@ namespace GameLogic
         }
 
         
-        public void Move(int i_IndexOfValue)
+        public void Move(int i_ButtonIndex)
         {
             
             if (!m_FirstMove)
             {
                 m_WonRound = false;
-                m_AvailableCards--;
-                m_FirstMoveValue = i_IndexOfValue;
+                
+                m_AvailableIndexes.TryGetValue(i_ButtonIndex, out m_FirstMoveValue);
+                m_FirstMoveButtonIndex = i_ButtonIndex;
                 m_FirstMove = true;
             }
             else
             {
-                
-                //m_AvailableCards--;
-                m_SecondMoveValue = i_IndexOfValue;
+                m_SecondMoveButtonIndex = i_ButtonIndex;
+                m_AvailableIndexes.TryGetValue( i_ButtonIndex, out m_SecondMoveValue );
                 m_FirstMove = false;
+                Console.WriteLine(m_FirstMoveValue + " " + m_SecondMoveValue);
                 if(m_FirstMoveValue == m_SecondMoveValue)
                 {
+                    Console.WriteLine("Match!");
                     m_WonRound = true;
-                    m_AvailableIndexes.Remove(m_FirstMoveValue);
-                    m_AvailableIndexes.Remove(m_SecondMoveValue);
-                   
+                    m_AvailableIndexes.Remove(m_FirstMoveButtonIndex);
+                    m_AvailableIndexes.Remove(m_SecondMoveButtonIndex);
                     
                     if (m_AvailableIndexes.Count == 0)
                     {
@@ -104,12 +109,26 @@ namespace GameLogic
                 }
                 else
                 {
-                //    m_AvailableCards += 2;
+                
                    
                 }
             }
         }
 
+        // get the length thaht he can randonm an index from
+       public void ComputerMove()
+       {    
+            System.Threading.Thread.Sleep(500);
+            Random randomIndex = new Random();
+            int indexOfValue = randomIndex.Next();
+              if (!m_FirstMove)
+              {
+                m_WonRound = false;
+                m_AvailableCards--;
+                m_FirstMoveValue = indexOfValue;
+                m_FirstMove = true;
+              } 
+       }
         public bool CheckMatch()
         {
             if(m_FirstMoveValue == m_SecondMoveValue)
@@ -122,7 +141,6 @@ namespace GameLogic
             }
             else
             {
-               // m_AvailableCards += 2;
                 return false;
             }
         }
