@@ -130,9 +130,7 @@ namespace GameUserInterface
                         card.Click += m_ButtonCard_Click;
                         card.Text = card.Value.ToString();
                         this.Controls.Add(card); 
-                    }
-                    
-                    
+                    } 
                 }   
             }
             
@@ -174,7 +172,6 @@ namespace GameUserInterface
                   {
                     
                     System.Threading.Thread.Sleep(2000); 
-                    secondRound = true;
                     SwitchPlayers();
                     CloseCards();
                   }    
