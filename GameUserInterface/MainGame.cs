@@ -184,8 +184,7 @@ namespace GameUserInterface
                else if(result == DialogResult.Yes)
                {
                     this.Visible = false;
-                 //MainGame newGame = new MainGame(m_Columns, m_Rows, m_FirstPlayerName,m_SecondPlayerName);
-                    GameSettings newGame = new GameSettings();
+                    MainGame newGame = new MainGame(m_Columns, m_Rows, m_FirstPlayerName,m_SecondPlayerName);
                     newGame.ShowDialog();
                }
             }
@@ -196,12 +195,13 @@ namespace GameUserInterface
             
             this.Refresh();
             int index = gameManager.GetRandomAvaiableIndex();
+            //m_Cards.ElementAt(index).
             OpenCard(m_Cards.ElementAt(index) as CardButton);
             gameManager.Move(index);
             this.Refresh();
 
 
-        }
+         }
 
         public string GetResultLine()
          {
