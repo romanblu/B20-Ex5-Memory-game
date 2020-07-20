@@ -14,6 +14,10 @@ namespace GameUserInterface
 {
     public partial class MainGame : Form
     {
+        private readonly Color k_FirstPlayerColor = Color.LawnGreen;
+        private readonly Color k_SecondPlayerColor = Color.MediumPurple;
+        private readonly Color k_ClosedCardColor = Color.DimGray;
+
         DialogResult result;
         private int m_Rows;
         private int m_Columns;
@@ -22,7 +26,6 @@ namespace GameUserInterface
         private CardButton m_FirstCard;
         private CardButton m_SecondCard;
         
-
         private Label m_LabelCurrentPlayer = new Label();
         private Label m_LabelCurrentPlayerName = new Label();
         private Label m_LabelFirstPlayerStats = new Label();
@@ -40,10 +43,6 @@ namespace GameUserInterface
         private int[] indexesOfValues;
         private GameManager gameManager;
         
-        private readonly Color k_FirstPlayerColor = Color.LawnGreen;
-        private readonly Color k_SecondPlayerColor = Color.MediumPurple;
-        private readonly Color k_ClosedCardColor = Color.DimGray;
-
         public MainGame(int i_Columns, int i_Rows, string i_FirstPlayerName, string i_SecondPlayerName)
         {
             m_Rows = i_Rows;
@@ -54,8 +53,8 @@ namespace GameUserInterface
             values = new char[i_Rows * i_Columns / 2];
             this.StartPosition = FormStartPosition.CenterScreen;
             this.Text = "Memory Game - Settings";
-            m_LabelFirstPlayerName.Text = i_FirstPlayerName +": ";
-            m_LabelSecondPlayerName.Text = i_SecondPlayerName +": ";
+            m_LabelFirstPlayerName.Text = i_FirstPlayerName + ": ";
+            m_LabelSecondPlayerName.Text = i_SecondPlayerName + ": ";
             m_LabelFirstPlayerStats.Text = "0 Pairs";
             m_LabelSecondPlayerStats.Text = "0 Pairs";
             m_LabelCurrentPlayer.Text = "Current Player:";
@@ -63,11 +62,8 @@ namespace GameUserInterface
             indexesOfValues = new int[i_Columns * i_Rows];
             gameManager = new GameManager(i_Rows, i_Columns);
             GenerateValues();
-            indexesOfValues = gameManager.GenerateRandomIndexes(i_Rows, i_Columns);
-            
+            indexesOfValues = gameManager.GenerateRandomIndexes(i_Rows, i_Columns);   
         }
-
-        
 
         protected override void OnLoad(EventArgs e)
         {
@@ -78,7 +74,6 @@ namespace GameUserInterface
 
         private void InitializeComponents()
         {
-            
             InitializeCards();
             m_LabelCurrentPlayer.AutoSize = true;
             m_LabelCurrentPlayerName.AutoSize = true;
@@ -94,7 +89,7 @@ namespace GameUserInterface
             m_LabelSecondPlayerName.BackColor = k_SecondPlayerColor;
             m_LabelSecondPlayerStats.BackColor = k_SecondPlayerColor;
 
-            m_LabelCurrentPlayer.Location = new Point(10, m_Cards.ElementAt(m_Cards.Count()-1).Top + m_Cards.ElementAt(m_Cards.Count() - 1).Height + 15);
+            m_LabelCurrentPlayer.Location = new Point(10, m_Cards.ElementAt(m_Cards.Count() - 1).Top + m_Cards.ElementAt(m_Cards.Count() - 1).Height + 15);
             m_LabelCurrentPlayerName.Location = new Point(m_LabelCurrentPlayer.Left + m_LabelCurrentPlayer.PreferredWidth, m_LabelCurrentPlayer.Top);
             
             m_LabelFirstPlayerName.Location = new Point(m_LabelCurrentPlayer.Left, m_LabelCurrentPlayer.Bottom);
@@ -104,8 +99,7 @@ namespace GameUserInterface
             m_LabelSecondPlayerStats.Location = new Point(m_LabelSecondPlayerName.Left + m_LabelSecondPlayerName.PreferredWidth, m_LabelSecondPlayerName.Top);
 
             this.Controls.AddRange(new Control[] { m_LabelSecondPlayerStats, m_LabelSecondPlayerName, m_LabelCurrentPlayer, m_LabelCurrentPlayerName, m_LabelFirstPlayerName, m_LabelFirstPlayerStats });
-
-            this.Size = new Size( m_Columns * ( 60 + 10) + 20 , m_LabelSecondPlayerStats.Bottom + 50);
+            this.Size = new Size((m_Columns * (60 + 10)) + 20, m_LabelSecondPlayerStats.Bottom + 50);
         }
         
         private void InitializeCards()
@@ -114,11 +108,11 @@ namespace GameUserInterface
             {
                 for (int j = 0; j < m_Columns; j++)
                 {
-                    int index = m_Columns * i + j;
+                    int index = (m_Columns * i) + j;
                     CardButton card = new CardButton(indexesOfValues[index], values[indexesOfValues[index]], index);
                     card.Height = 60;
                     card.Width = 60;
-                    card.Location = new Point(10 + (card.Width + 10) * j, 10 + (card.Height + 10) * i);
+                    card.Location = new Point(10 + ((card.Width + 10) * j), 10 + (card.Height + 10) * i);
                     m_Cards.Add(card);
                     card.BackColor = k_ClosedCardColor;
                     card.Click += m_ButtonCard_Click;
@@ -136,11 +130,10 @@ namespace GameUserInterface
         }
      
         private void m_ButtonCard_Click(object sender, EventArgs e)
-        {
-            
+        {   
             CardButton card = sender as CardButton;
             
-            if(m_ButtonEnable == true && card.Text == "" && m_CurrentPlayer != "Computer" )
+            if(m_ButtonEnable == true && card.Text == string.Empty && m_CurrentPlayer != "Computer")
             {
                 OpenCard(card);
                 gameManager.Move(card.ButtonIndex);
@@ -154,21 +147,18 @@ namespace GameUserInterface
                 gameManager.Move(card.ButtonIndex);
                 this.Refresh();
                 System.Threading.Thread.Sleep(500);
-
             }
 
             if (gameManager.FirstMove)
             {
                 m_FirstCard = card;
 
-                if ( m_CurrentPlayer == "Computer")
+                if (m_CurrentPlayer == "Computer")
                 {
-                    Console.WriteLine("PC 2nd move");
                     System.Threading.Thread.Sleep(1000);
                     ComputerTurn();
                 }
             }
-
             else 
             {
                    m_ButtonEnable = false;
@@ -176,15 +166,13 @@ namespace GameUserInterface
                    
                   if (gameManager.WonRound)
                   {
-                    // we got a match
                      UpdatePoints(m_CurrentPlayer);
 
-                     if(m_CurrentPlayer == "Computer")
+                     if(m_CurrentPlayer == "Computer" && !gameManager.GameFinished)
                      {
                         ComputerTurn();
                      }
                   }
-
                   else
                   {
                     System.Threading.Thread.Sleep(2000);
@@ -208,7 +196,7 @@ namespace GameUserInterface
                else if(result == DialogResult.Yes)
                {
                     this.Visible = false;
-                    MainGame newGame = new MainGame(m_Columns, m_Rows, m_FirstPlayerName,m_SecondPlayerName);
+                    MainGame newGame = new MainGame(m_Columns, m_Rows, m_FirstPlayerName, m_SecondPlayerName);
                     newGame.ShowDialog();
                }
             }
@@ -219,7 +207,6 @@ namespace GameUserInterface
             this.Refresh();
             int index = gameManager.GetRandomAvaiableIndex();
             (m_Cards.ElementAt(index) as CardButton).PerformClick();
-
         }
 
         public string GetResultLine()
@@ -262,13 +249,12 @@ namespace GameUserInterface
 
         private void CloseCards()
         {
-            m_FirstCard.Text = "";
-            m_SecondCard.Text = "";
+            m_FirstCard.Text = string.Empty;
+            m_SecondCard.Text = string.Empty;
             m_FirstCard.BackColor = k_ClosedCardColor;
             m_SecondCard.BackColor = k_ClosedCardColor;
         }
 
-       
         private void SwitchPlayers()
         {
             m_ButtonEnable = true;

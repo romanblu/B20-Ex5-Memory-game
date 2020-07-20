@@ -25,7 +25,8 @@ namespace GameLogic
             {
                 valid = false;
             }
-            else {
+            else 
+            {
                 for (int i = 0; i < i_Name.Length; i++)
                 {
                     if (!(i_Name[i] <= 'z' && i_Name[i] >= 'a') && !(i_Name[i] <= 'Z' && i_Name[i] >= 'A'))
@@ -37,6 +38,5 @@ namespace GameLogic
 
             return valid;
         }
-
     }
 }

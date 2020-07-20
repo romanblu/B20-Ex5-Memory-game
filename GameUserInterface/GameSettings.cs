@@ -38,13 +38,11 @@ namespace GameUserInterface
             this.Text = "Memory Game - Settings";
         }
 
-        
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
             InitControls();
         }
-
 
         private void InitControls()
         {
@@ -63,7 +61,6 @@ namespace GameUserInterface
             m_TextboxSecondPlayer.Enabled = false;
             m_TextboxSecondPlayer.Text = "-computer-";
 
-
             m_ButtonPlayAgainstFriend.Text = "Against a Friend";
             m_ButtonPlayAgainstFriend.Location = new Point(m_TextboxSecondPlayer.Right + 10, m_TextboxSecondPlayer.Top);
             m_ButtonPlayAgainstFriend.Width = 120;
@@ -77,17 +74,17 @@ namespace GameUserInterface
             m_ButtonStart.Location = new Point(m_ButtonPlayAgainstFriend.Right - m_ButtonStart.Width, m_ButtonBoardSize.Top + m_ButtonBoardSize.Height - m_ButtonStart.Height);
             m_ButtonStart.BackColor = Color.LightGreen;
 
-            this.Controls.AddRange(new Control[] { m_LabelFirstPlayer, m_LabelSecondPlayer,
-            m_LabelBoardSize, m_TextboxFirstPlayer, m_TextboxSecondPlayer, m_ButtonPlayAgainstFriend, m_ButtonBoardSize, m_ButtonStart });
+            this.Controls.AddRange(new Control[] 
+            { 
+                m_LabelFirstPlayer, m_LabelSecondPlayer,
+                m_LabelBoardSize, m_TextboxFirstPlayer, m_TextboxSecondPlayer, m_ButtonPlayAgainstFriend, m_ButtonBoardSize, m_ButtonStart 
+            });
 
             m_ButtonPlayAgainstFriend.Click += m_ButtonPlayAgainstFriend_Click;
             m_ButtonBoardSize.Click += m_ButtonBoardSize_Click;
             m_ButtonStart.Click += m_ButtonStart_Click;
-
-
         }
 
-          
         private void m_ButtonPlayAgainstFriend_Click(object sender, EventArgs e)
         {
             if (m_AgainstFriend)
@@ -101,7 +98,7 @@ namespace GameUserInterface
             {
                 m_AgainstFriend = true;
                 m_TextboxSecondPlayer.Enabled = true;
-                m_TextboxSecondPlayer.Text = "";
+                m_TextboxSecondPlayer.Text = string.Empty;
                 m_ButtonPlayAgainstFriend.Text = "Against Computer";
             }
         }
@@ -112,15 +109,13 @@ namespace GameUserInterface
             {
                 MessageBox.Show("Player name not valid, use only characters");
             }
-
             else if (m_AgainstFriend && !PlayerStats.ValidateInputName(m_TextboxSecondPlayer.Text))
             {
                 MessageBox.Show("Player name not valid, use only characters");
             }
             else
             {
-                this.Close();
-                
+                this.Close();   
             }
         }
 
@@ -132,6 +127,7 @@ namespace GameUserInterface
             {
                 m_TextboxSecondPlayer.Text = "Computer";
             }
+
             this.Visible = false;
             int rows = m_ButtonBoardSize.Text[0] - '0';
             int columns = m_ButtonBoardSize.Text[2] - '0';
@@ -151,13 +147,13 @@ namespace GameUserInterface
                 columns++;
             }
 
-            if( columns > k_MaxColumnLength)
+            if(columns > k_MaxColumnLength)
             {
                 columns = k_MinColumnLength;
                 rows = k_MinRowLength;
             }
+
             m_ButtonBoardSize.Text = columns + "x" + rows;
-        }
-        
+        }   
     }
 }

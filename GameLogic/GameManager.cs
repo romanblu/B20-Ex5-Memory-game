@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,14 +8,12 @@ namespace GameLogic
 {
     public class GameManager
     {
-
         private int[] m_IndexesOfValues;   // a table that holds the index of a value (letter) for every index
         private bool m_FirstMove = false;
         private Dictionary<int, int> m_AvailableIndexes;
         
         private int m_FirstMoveValue;
         private int m_SecondMoveValue;
-        private int m_AvailableCards;
         private bool m_WonRound = false;
         private bool m_GameFinished;
         private int m_FirstMoveButtonIndex;
@@ -25,9 +22,8 @@ namespace GameLogic
         public GameManager(int i_Rows, int i_Columns)
         {
             m_IndexesOfValues = new int[i_Rows * i_Columns];
-            m_IndexesOfValues = GenerateRandomIndexes(i_Rows,i_Columns);
+            m_IndexesOfValues = GenerateRandomIndexes(i_Rows, i_Columns);
             
-            m_AvailableCards = i_Rows * i_Columns;
             m_GameFinished = false;
             m_FirstMove = false;
             m_AvailableIndexes = new Dictionary<int, int>(i_Rows * i_Columns);
@@ -38,9 +34,29 @@ namespace GameLogic
             }
         }
 
-        public bool GameFinished {  get { return m_GameFinished; } }
-        public bool FirstMove { get { return m_FirstMove; } }
-        public bool WonRound { get { return m_WonRound; } }
+        public bool GameFinished 
+        {  
+            get 
+            { 
+                return m_GameFinished; 
+            } 
+        }
+        
+        public bool FirstMove 
+        { 
+            get 
+            { 
+                return m_FirstMove; 
+            } 
+        }
+        
+        public bool WonRound 
+        { 
+            get 
+            { 
+                return m_WonRound; 
+            } 
+        }
 
         public int[] GenerateRandomIndexes(int i_Rows, int i_Columns)
         {
@@ -49,7 +65,7 @@ namespace GameLogic
             for (int i = 0; i < i_Rows * i_Columns / 2; i++)
             {
                 indexes[2 * i] = i;
-                indexes[2 * i + 1] = i;
+                indexes[(2 * i) + 1] = i;
             }
 
             Randomize(indexes);
@@ -79,8 +95,7 @@ namespace GameLogic
         }
         
         public void Move(int i_ButtonIndex)
-        {
-            
+        { 
             if (!m_FirstMove)
             {
                 m_WonRound = false;
@@ -92,13 +107,11 @@ namespace GameLogic
             else
             {
                 m_SecondMoveButtonIndex = i_ButtonIndex;
-                m_AvailableIndexes.TryGetValue( i_ButtonIndex, out m_SecondMoveValue );
+                m_AvailableIndexes.TryGetValue(i_ButtonIndex, out m_SecondMoveValue);
                 m_AvailableIndexes.Remove(i_ButtonIndex);
                 m_FirstMove = false;
-                Console.WriteLine(m_FirstMoveValue + " " + m_SecondMoveValue);
                 if(m_FirstMoveValue == m_SecondMoveValue)
                 {
-                    Console.WriteLine("Match!");
                     m_WonRound = true;
                     
                     if (m_AvailableIndexes.Count == 0)
@@ -122,6 +135,7 @@ namespace GameLogic
                 {
                     m_GameFinished = true;
                 }
+
                 return true;
             }
             else

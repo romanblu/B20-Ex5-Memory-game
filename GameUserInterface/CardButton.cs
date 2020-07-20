@@ -10,8 +10,6 @@ namespace GameUserInterface
 {
     public class CardButton : Button
     {
-        private int m_Rows;
-        private int m_Columns;
         private char m_Value;
         private int m_IndexOfValue;
         private int m_ButtonIndex;
@@ -23,17 +21,33 @@ namespace GameUserInterface
             m_ButtonIndex = i_ButtonIndex;
         }
 
-        public int ButtonIndex { get { return m_ButtonIndex; }  }
+        public int ButtonIndex 
+        {    
+            get 
+            { 
+                return m_ButtonIndex; 
+            }  
+        }
 
-        public char Value { get { return m_Value; } }
+        public char Value 
+        { 
+            get 
+            { 
+                return m_Value; 
+            }
+        }
 
-        public int IndexOfValue { get {return m_IndexOfValue; } }
-        public int Columns { get { return m_Columns; } }
-
+        public int IndexOfValue 
+        { 
+            get 
+            {
+                return m_IndexOfValue; 
+            } 
+        }
+        
         public void OpenCard()
         {
             this.Text = m_Value.ToString(); 
         }
-
     }
 }
