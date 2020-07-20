@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace GameUserInterface
 {
-    class CardButton : Button
+    public class CardButton : Button
     {
         private int m_Rows;
         private int m_Columns;

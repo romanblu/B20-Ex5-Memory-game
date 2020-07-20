@@ -14,7 +14,7 @@ namespace GameUserInterface
 {
     public partial class MainGame : Form
     {
-        DialogResult result;//added
+        DialogResult result;
         int m_Rows;
         int m_Columns;
         int m_FirstPlayerPairs = 0;
@@ -31,7 +31,7 @@ namespace GameUserInterface
         Label m_LabelFirstPlayerName = new Label();
         Label m_LabelSecondPlayerName = new Label();
         
-        bool m_ButtonEnable = true;// added
+        bool m_ButtonEnable = true;
         string m_FirstPlayerName;
         string m_SecondPlayerName;
         string m_CurrentPlayer;
@@ -76,7 +76,7 @@ namespace GameUserInterface
             InitializeComponents();
         }
 
-        void InitializeComponents()
+        private void InitializeComponents()
         {
             
             InitializeCards();
@@ -135,12 +135,12 @@ namespace GameUserInterface
             }
         }
      
-        void m_ButtonCard_Click(object sender, EventArgs e)
+        private void m_ButtonCard_Click(object sender, EventArgs e)
         {
             
             CardButton card = sender as CardButton;
             
-            if(m_ButtonEnable == true && card.Text == "" && m_CurrentPlayer != "Computer" )//added
+            if(m_ButtonEnable == true && card.Text == "" && m_CurrentPlayer != "Computer" )
             {
                 OpenCard(card);
                 gameManager.Move(card.ButtonIndex);
@@ -168,22 +168,23 @@ namespace GameUserInterface
                     ComputerTurn();
                 }
             }
+
             else 
             {
-                
                    m_ButtonEnable = false;
                    m_SecondCard = card; 
                    
                   if (gameManager.WonRound)
                   {
-                   // we got a match
-                    UpdatePoints(m_CurrentPlayer);
+                    // we got a match
+                     UpdatePoints(m_CurrentPlayer);
 
-                    if(m_CurrentPlayer == "Computer")
-                    {
+                     if(m_CurrentPlayer == "Computer")
+                     {
                         ComputerTurn();
-                    }
+                     }
                   }
+
                   else
                   {
                     System.Threading.Thread.Sleep(2000);
@@ -192,9 +193,8 @@ namespace GameUserInterface
                     if(m_CurrentPlayer == "Computer")
                     {
                         ComputerTurn();
-
                     }
-                }    
+                  }    
             }
 
             if (gameManager.GameFinished)
@@ -216,13 +216,11 @@ namespace GameUserInterface
         
          public void ComputerTurn()
          {
-            
             this.Refresh();
-
             int index = gameManager.GetRandomAvaiableIndex();
             (m_Cards.ElementAt(index) as CardButton).PerformClick();
 
-        }
+         }
 
         public string GetResultLine()
          {
@@ -273,7 +271,7 @@ namespace GameUserInterface
        
         void SwitchPlayers()
         {
-            m_ButtonEnable = true;//added
+            m_ButtonEnable = true;
             if (m_CurrentPlayer == m_FirstPlayerName)
             {
                 m_CurrentPlayer = m_SecondPlayerName;
@@ -292,7 +290,7 @@ namespace GameUserInterface
 
         void UpdatePoints(string i_CurrentPlayer)
         {
-            m_ButtonEnable = true;//added
+            m_ButtonEnable = true;
             if(i_CurrentPlayer == m_FirstPlayerName)
             {
                 m_FirstPlayerPairs++;

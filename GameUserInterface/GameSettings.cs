@@ -13,10 +13,10 @@ namespace GameUserInterface
 {
     public partial class GameSettings : Form
     {
-        const int k_MinRowLength = 4;
-        const int k_MaxRowLength = 6;
-        const int k_MinColumnLength = 4;
-        const int k_MaxColumnLength = 6;
+        private const int k_MinRowLength = 4;
+        private const int k_MaxRowLength = 6;
+        private const int k_MinColumnLength = 4;
+        private const int k_MaxColumnLength = 6;
 
         TextBox m_TextboxFirstPlayer = new TextBox();
         TextBox m_TextboxSecondPlayer = new TextBox();
@@ -29,25 +29,21 @@ namespace GameUserInterface
         Button m_ButtonBoardSize = new Button();
         Button m_ButtonStart = new Button();
 
-        bool m_AgainstFriend = false;
+        private bool m_AgainstFriend = false;
 
         public GameSettings()
         {
             this.Size = new Size(400, 300);
             this.StartPosition = FormStartPosition.CenterScreen;
             this.Text = "Memory Game - Settings";
-            
         }
 
         
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-
             InitControls();
-
         }
-
 
 
         private void InitControls()
@@ -82,7 +78,7 @@ namespace GameUserInterface
             m_ButtonStart.BackColor = Color.LightGreen;
 
             this.Controls.AddRange(new Control[] { m_LabelFirstPlayer, m_LabelSecondPlayer,
-                m_LabelBoardSize, m_TextboxFirstPlayer, m_TextboxSecondPlayer, m_ButtonPlayAgainstFriend, m_ButtonBoardSize, m_ButtonStart });
+            m_LabelBoardSize, m_TextboxFirstPlayer, m_TextboxSecondPlayer, m_ButtonPlayAgainstFriend, m_ButtonBoardSize, m_ButtonStart });
 
             m_ButtonPlayAgainstFriend.Click += m_ButtonPlayAgainstFriend_Click;
             m_ButtonBoardSize.Click += m_ButtonBoardSize_Click;
@@ -92,7 +88,7 @@ namespace GameUserInterface
         }
 
           
-        void m_ButtonPlayAgainstFriend_Click(object sender, EventArgs e)
+        private void m_ButtonPlayAgainstFriend_Click(object sender, EventArgs e)
         {
             if (m_AgainstFriend)
             {
@@ -110,7 +106,7 @@ namespace GameUserInterface
             }
         }
 
-        void m_ButtonStart_Click(object sender, EventArgs e)
+        private void m_ButtonStart_Click(object sender, EventArgs e)
         {
             if (!PlayerStats.ValidateInputName(m_TextboxFirstPlayer.Text))
             {
@@ -143,7 +139,7 @@ namespace GameUserInterface
             mainGame.ShowDialog();
         }
 
-        void m_ButtonBoardSize_Click(object sender, EventArgs e)
+        private void m_ButtonBoardSize_Click(object sender, EventArgs e)
         {
             string targetSize = (sender as Button).Text;
             int rows = targetSize[2] - '0';
@@ -154,6 +150,7 @@ namespace GameUserInterface
                 rows = k_MaxRowLength;
                 columns++;
             }
+
             if( columns > k_MaxColumnLength)
             {
                 columns = k_MinColumnLength;

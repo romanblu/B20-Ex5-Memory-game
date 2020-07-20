@@ -30,14 +30,12 @@ namespace GameLogic
             m_AvailableCards = i_Rows * i_Columns;
             m_GameFinished = false;
             m_FirstMove = false;
-            m_AvailableIndexes = new Dictionary<int, int>();
+            m_AvailableIndexes = new Dictionary<int, int>(i_Rows * i_Columns);
 
-            for(int i=0;i<i_Rows * i_Columns; i++)
+            for(int i = 0; i < i_Rows * i_Columns; i++)
             {
                 m_AvailableIndexes.Add(i, m_IndexesOfValues[i]);
             }
-            
-
         }
 
         public bool GameFinished {  get { return m_GameFinished; } }
@@ -55,13 +53,11 @@ namespace GameLogic
             }
 
             Randomize(indexes);
-
             m_IndexesOfValues = indexes;
-
             return indexes;
         }
 
-        static void Randomize(int[] items)
+        private static void Randomize(int[] items)
         {
             Random rand = new Random();
 
@@ -77,7 +73,8 @@ namespace GameLogic
         public int GetRandomAvaiableIndex()
         {
             Random random = new Random();
-            int randomIndex =  random.Next(0, m_AvailableIndexes.Count);
+            int a = m_AvailableIndexes.Count;
+            int randomIndex = random.Next(0, m_AvailableIndexes.Count);
             return m_AvailableIndexes.ElementAt(randomIndex).Key;
         }
         
@@ -87,7 +84,6 @@ namespace GameLogic
             if (!m_FirstMove)
             {
                 m_WonRound = false;
-                
                 m_AvailableIndexes.TryGetValue(i_ButtonIndex, out m_FirstMoveValue);
                 m_AvailableIndexes.Remove(i_ButtonIndex);
                 m_FirstMoveButtonIndex = i_ButtonIndex;
@@ -108,7 +104,6 @@ namespace GameLogic
                     if (m_AvailableIndexes.Count == 0)
                     {
                         m_GameFinished = true;
-                        
                     }
                 }
                 else
@@ -119,20 +114,6 @@ namespace GameLogic
             }
         }
 
-        // get the length thaht he can randonm an index from
-       public void ComputerMove()
-       {    
-            System.Threading.Thread.Sleep(500);
-            Random randomIndex = new Random();
-            int indexOfValue = randomIndex.Next();
-              if (!m_FirstMove)
-              {
-                m_WonRound = false;
-                m_AvailableCards--;
-                m_FirstMoveValue = indexOfValue;
-                m_FirstMove = true;
-              } 
-       }
         public bool CheckMatch()
         {
             if(m_FirstMoveValue == m_SecondMoveValue)
