@@ -77,7 +77,8 @@ namespace GameLogic
         public int GetRandomAvaiableIndex()
         {
             Random random = new Random();
-            return random.Next(0, m_AvailableIndexes.Count);
+            int randomIndex =  random.Next(0, m_AvailableIndexes.Count);
+            return m_AvailableIndexes.ElementAt(randomIndex).Key;
         }
         
         public void Move(int i_ButtonIndex)
@@ -88,6 +89,7 @@ namespace GameLogic
                 m_WonRound = false;
                 
                 m_AvailableIndexes.TryGetValue(i_ButtonIndex, out m_FirstMoveValue);
+                m_AvailableIndexes.Remove(i_ButtonIndex);
                 m_FirstMoveButtonIndex = i_ButtonIndex;
                 m_FirstMove = true;
             }
@@ -95,24 +97,24 @@ namespace GameLogic
             {
                 m_SecondMoveButtonIndex = i_ButtonIndex;
                 m_AvailableIndexes.TryGetValue( i_ButtonIndex, out m_SecondMoveValue );
+                m_AvailableIndexes.Remove(i_ButtonIndex);
                 m_FirstMove = false;
                 Console.WriteLine(m_FirstMoveValue + " " + m_SecondMoveValue);
                 if(m_FirstMoveValue == m_SecondMoveValue)
                 {
                     Console.WriteLine("Match!");
                     m_WonRound = true;
-                    m_AvailableIndexes.Remove(m_FirstMoveButtonIndex);
-                    m_AvailableIndexes.Remove(m_SecondMoveButtonIndex);
                     
                     if (m_AvailableIndexes.Count == 0)
                     {
                         m_GameFinished = true;
+                        
                     }
                 }
                 else
                 {
-                
-                   
+                    m_AvailableIndexes.Add(m_FirstMoveButtonIndex, m_FirstMoveValue);
+                    m_AvailableIndexes.Add(m_SecondMoveButtonIndex, m_SecondMoveValue);
                 }
             }
         }
