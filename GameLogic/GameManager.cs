@@ -36,10 +36,7 @@ namespace GameLogic
             {
                 m_AvailableIndexes.Add(i, m_IndexesOfValues[i]);
             }
-            for(int i = 0; i < m_IndexesOfValues.Length; i++)
-            {
-                Console.WriteLine(m_AvailableIndexes.ElementAt(i));
-            }
+            
 
         }
 
