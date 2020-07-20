@@ -72,6 +72,11 @@ namespace GameLogic
             }
         }
 
+        public int GetRandomAvaiableIndex()
+        {
+            Random random = new Random();
+            return random.Next(0, m_AvailableIndexes.Count);
+        }
         
         public void Move(int i_ButtonIndex)
         {

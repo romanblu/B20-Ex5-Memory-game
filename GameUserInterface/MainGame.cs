@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using GameLogic;
@@ -145,12 +146,11 @@ namespace GameUserInterface
                 gameManager.Move(card.ButtonIndex);
                 this.Refresh(); 
             }
-          //  else if(m_ButtonEnable == true && card.Text == "" &&  m_CurrentPlayer == "Computer" )//added
-          //  {
-          //      ComputerTurn();
-         //   }
+            else if(m_ButtonEnable == true && card.Text == "" &&  m_CurrentPlayer == "Computer" )//added
+            {
+                ComputerTurn();
+            }
 
-            
             if (gameManager.FirstMove)
             {
                 m_FirstCard = card; 
@@ -184,26 +184,26 @@ namespace GameUserInterface
                else if(result == DialogResult.Yes)
                {
                     this.Visible = false;
-                    MainGame newGame = new MainGame(m_Columns, m_Rows, m_FirstPlayerName,m_SecondPlayerName);
+                 //MainGame newGame = new MainGame(m_Columns, m_Rows, m_FirstPlayerName,m_SecondPlayerName);
+                    GameSettings newGame = new GameSettings();
                     newGame.ShowDialog();
                }
             }
         }
         
-        public void ComputerTurn()
+         public void ComputerTurn()
          {
-            this.Refresh();
-            //System.Threading.Thread.Sleep(500);
-            Random randomIndex = new Random();
-            int indexOfValue = randomIndex.Next(0, gameManager.m_AvailableIndexes.Count);
             
-            OpenCard(m_Cards[indexOfValue]);
-            gameManager.Move(indexOfValue);
-            this.Refresh(); 
+            this.Refresh();
+            int index = gameManager.GetRandomAvaiableIndex();
+            OpenCard(m_Cards.ElementAt(index) as CardButton);
+            gameManager.Move(index);
+            this.Refresh();
 
-         }
 
-         public string GetResultLine()
+        }
+
+        public string GetResultLine()
          {
             string result;
             if(m_FirstPlayerPairs > m_SecondPlayerPairs)
