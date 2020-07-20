@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using GameLogic;
@@ -150,7 +151,6 @@ namespace GameUserInterface
                 ComputerTurn();
             }
 
-            
             if (gameManager.FirstMove)
             {
                 m_FirstCard = card; 
@@ -195,17 +195,15 @@ namespace GameUserInterface
          {
             
             this.Refresh();
-            System.Threading.Thread.Sleep(500);
-            Random randomIndex = new Random();
-            int indexOfValue = randomIndex.Next(0, gameManager.AvailableIndexes.Count);
-            
-            OpenCard(m_Cards[indexOfValue]);
-            gameManager.Move(indexOfValue);
-            this.Refresh(); 
+            int index = gameManager.GetRandomAvaiableIndex();
+            OpenCard(m_Cards.ElementAt(index) as CardButton);
+            gameManager.Move(index);
+            this.Refresh();
 
-         }
 
-         public string GetResultLine()
+        }
+
+        public string GetResultLine()
          {
             string result;
             if(m_FirstPlayerPairs > m_SecondPlayerPairs)
