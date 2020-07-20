@@ -205,8 +205,8 @@ namespace GameUserInterface
             System.Threading.Thread.Sleep(500);
             Random randomIndex = new Random();
             int indexOfValue = randomIndex.Next(0, gameManager.AvailableIndexes.Count);
-           
-            OpenCard(card);
+            
+            OpenCard(m_Cards[indexOfValue]);
             gameManager.Move(indexOfValue);
             this.Refresh(); 
 
