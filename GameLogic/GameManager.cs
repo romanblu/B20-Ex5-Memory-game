@@ -12,12 +12,14 @@ namespace GameLogic
 
         private int[] m_IndexesOfValues;   // a table that holds the index of a value (letter) for every index
         private bool m_FirstMove = false;
-        private List<int> m_AvailableIndexes;
+        private List<int> m_AvailableIndexes;//added
         private int m_FirstMoveValue;
         private int m_SecondMoveValue;
         private int m_AvailableCards;
         private bool m_WonRound = false;
         private bool m_GameFinished;
+
+        public List<int> AvailableIndexes {get {return m_AvailableIndexes;}}
         
         
         public GameManager(int i_Rows, int i_Columns)
@@ -53,6 +55,7 @@ namespace GameLogic
             Randomize(indexes);
 
             m_IndexesOfValues = indexes;
+            m_AvailableIndexes = new List<int>(indexes.Length);//added
 
             return indexes;
         }
@@ -76,7 +79,6 @@ namespace GameLogic
             
             if (!m_FirstMove)
             {
-                
                 m_WonRound = false;
                 m_AvailableCards--;
                 m_FirstMoveValue = i_IndexOfValue;
@@ -108,23 +110,6 @@ namespace GameLogic
             }
         }
 
-        // get the length thaht he can randonm an index from
-       public void ComputerMove()
-       {
-            
-            //this.Refresh();
-            System.Threading.Thread.Sleep(500);
-            Random randomIndex = new Random();
-            int indexOfValue = randomIndex.Next();
-              if (!m_FirstMove)
-              {
-                m_WonRound = false;
-                m_AvailableCards--;
-                m_FirstMoveValue = indexOfValue;
-                m_FirstMove = true;
-              } 
-
-       }
         public bool CheckMatch()
         {
             if(m_FirstMoveValue == m_SecondMoveValue)
